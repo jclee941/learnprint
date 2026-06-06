@@ -4,17 +4,29 @@ import { loadDotEnv } from "./dotenv";
 import { handleAgentChat } from "./agent-handler";
 import { loadLlmConfig } from "./env";
 import { serveStatic } from "./static";
-import type { AgentChatBody, LlmConfig } from "./types";
+import { validateAgentChatBody } from "./validation";
+import type { LlmConfig } from "./types";
 
 // Load server-side secrets from .env at startup (does not override existing
 // env vars), so `npm run serve` works after `cp .env.example .env`.
 loadDotEnv(join(process.cwd(), ".env"));
 
+const MAX_BODY_BYTES = 1_000_000; // 1MB request-body limit for /api/agent/chat
+
+class BodyTooLargeError extends Error {}
+
 function readBody(req: Parameters<typeof handleRequest>[0]): Promise<string> {
   return new Promise((resolveBody, reject) => {
     let body = "";
+    let bytes = 0;
     req.setEncoding("utf8");
     req.on("data", (chunk: string) => {
+      bytes += Buffer.byteLength(chunk, "utf8");
+      if (bytes > MAX_BODY_BYTES) {
+        reject(new BodyTooLargeError("요청 본문이 너무 큽니다."));
+        req.destroy();
+        return;
+      }
       body += chunk;
     });
     req.on("end", () => resolveBody(body));
@@ -45,6 +57,39 @@ async function handleRequest(
       return;
     }
 
+    // 요청 본문을 읽고 검증한다 — SSE 헤더를 보내기 전에 400을 낼 수 있도록.
+    let rawBody: string;
+    try {
+      rawBody = await readBody(req);
+    } catch (error) {
+      const tooLarge = error instanceof BodyTooLargeError;
+      res.writeHead(tooLarge ? 413 : 400, {
+        "Content-Type": "application/json; charset=utf-8",
+      });
+      res.end(
+        JSON.stringify({
+          error: tooLarge ? "요청 본문이 너무 큽니다." : "요청을 읽을 수 없습니다.",
+        }),
+      );
+      return;
+    }
+
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(rawBody);
+    } catch {
+      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: "잘못된 JSON 형식입니다." }));
+      return;
+    }
+
+    const validation = validateAgentChatBody(parsed);
+    if (!validation.ok) {
+      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: validation.error }));
+      return;
+    }
+
     res.writeHead(200, {
       "Content-Type": "text/event-stream; charset=utf-8",
       "Cache-Control": "no-cache",
@@ -52,11 +97,12 @@ async function handleRequest(
     });
 
     try {
-      const body = JSON.parse(await readBody(req)) as AgentChatBody;
-      await handleAgentChat(body, config, (chunk) => res.write(chunk));
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "처리 중 오류가 발생했습니다.";
-      res.write(`data: ${JSON.stringify({ error: message, done: true })}\n\n`);
+      await handleAgentChat(validation.body, config, (chunk) => res.write(chunk));
+    } catch {
+      // 내부 오류 세부정보는 클라이언트에 노출하지 않고 일반 메시지만 전달한다.
+      res.write(
+        `data: ${JSON.stringify({ error: "AI 응답 처리 중 오류가 발생했습니다.", done: true })}\n\n`,
+      );
     } finally {
       res.end();
     }
