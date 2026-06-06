@@ -55,18 +55,34 @@ describe("resume exporters", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 
     expect(ledger).toContain("# 역량 증거 원장");
-    expect(ledger).toContain("| 학습 경험 | 유형·기간 | 역량 | 증거 문장 |");
+    expect(ledger).toContain("| 학습 경험 | 유형·기간 | 인공물·출처 | 역량 | 증거 문장 | 한계 |");
     expect(ledger).toContain("데이터 분석 프로젝트");
     expect(ledger).toContain("데이터 분석 역량");
     expect(ledger).toContain("프로젝트, 2026.01 - 2026.03");
     expect(ledger).toContain("Python으로 데이터를 분석");
   });
 
-  it("resume:evidence-ledger-includes-limitation-note", () => {
+  it("resume:evidence-ledger-includes-row-and-global-limitation", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 
-    expect(ledger).toContain("결정론적 키워드 분류");
+    // per-row limitation cell
+    expect(ledger).toContain("키워드 분류 결과이며 의미 검증은 LLM 검토 필요");
+    // global limitation note
     expect(ledger).toContain("성적·출석·LMS 원본을 자동 검증하지 않습니다");
+  });
+
+  it("resume:evidence-ledger-includes-artifact-source", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    // artifact/source column derived from evidence link
+    expect(ledger).toContain("[파일·링크](https://example.com/report)");
+  });
+
+  it("resume:evidence-ledger-uses-correct-spelling", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("\uD769\uC5B4\uC9C4 \uD559\uC2B5");
+    expect(ledger).not.toContain("\uD754\uC5B4\uC9C4");
   });
 
   it("resume:evidence-ledger-is-deterministic", () => {

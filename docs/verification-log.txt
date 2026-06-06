@@ -1,0 +1,19 @@
+learnprint 검증 로그 (현재 HEAD 기준)
+생성: 2026-06-07 06:08:27 KST
+커밋: b377f05 (+ 본 개선 작업의 미커밋 변경 포함)
+
+=== npm test ===
+ Test Files  20 passed (20)
+      Tests  90 passed (90)
+
+=== npm run typecheck ===
+> tsc --noEmit && tsc -p tsconfig.server.json
+
+(exit OK = 타입 오류 없음)
+
+=== npm run build ===
+✓ 48 modules transformed.
+dist/index.html                   0.41 kB │ gzip:  0.30 kB
+dist/assets/index-ZIfoTPJf.css   15.60 kB │ gzip:  3.67 kB
+dist/assets/index-DsNIeAF_.js   214.66 kB │ gzip: 68.57 kB
+✓ built in 461ms
