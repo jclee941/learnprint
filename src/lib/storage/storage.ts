@@ -3,7 +3,12 @@ import type { LearningItem } from "../../types/learning";
 export const STORAGE_KEY = "hycu-learning-resume:items:v1";
 
 export function loadLearningItems(): LearningItem[] {
-  const storedItems = localStorage.getItem(STORAGE_KEY);
+  let storedItems: string | null;
+  try {
+    storedItems = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return [];
+  }
 
   if (storedItems === null) {
     return [];
@@ -20,13 +25,25 @@ export function loadLearningItems(): LearningItem[] {
 
 /** localStorage에 학습 경험이 한 번이라도 저장된 적이 있는지 여부(첫 실행 판별용). */
 export function hasStoredLearningItems(): boolean {
-  return localStorage.getItem(STORAGE_KEY) !== null;
+  try {
+    return localStorage.getItem(STORAGE_KEY) !== null;
+  } catch {
+    return false;
+  }
 }
 
 export function saveLearningItems(items: LearningItem[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // 저장소 비활성화/용량 초과 등에서도 앱이 중단되지 않도록 무시한다.
+  }
 }
 
 export function clearLearningItems(): void {
-  localStorage.removeItem(STORAGE_KEY);
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // 저장소 접근 실패 시 무시한다.
+  }
 }

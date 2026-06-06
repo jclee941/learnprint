@@ -1,5 +1,5 @@
 import { LEARNING_ITEM_TYPES, type LearningItem } from "../../types/learning";
-import { clearLearningItems, loadLearningItems, saveLearningItems, STORAGE_KEY } from "./storage";
+import { clearLearningItems, hasStoredLearningItems, loadLearningItems, saveLearningItems, STORAGE_KEY } from "./storage";
 
 const learningItems: LearningItem[] = [
   {
@@ -61,6 +61,42 @@ describe("storage", () => {
       expect(fetchSpy).not.toHaveBeenCalled();
     } finally {
       vi.unstubAllGlobals();
+    }
+  });
+
+  it("storage:load-returns-default-when-getitem-throws", () => {
+    const getItem = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockImplementation(() => {
+        throw new Error("storage disabled");
+      });
+    try {
+      expect(() => loadLearningItems()).not.toThrow();
+      expect(loadLearningItems()).toEqual([]);
+      expect(() => hasStoredLearningItems()).not.toThrow();
+      expect(hasStoredLearningItems()).toBe(false);
+    } finally {
+      getItem.mockRestore();
+    }
+  });
+
+  it("storage:save-and-clear-noop-when-storage-throws", () => {
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new Error("QuotaExceededError");
+      });
+    const removeItem = vi
+      .spyOn(Storage.prototype, "removeItem")
+      .mockImplementation(() => {
+        throw new Error("storage disabled");
+      });
+    try {
+      expect(() => saveLearningItems(learningItems)).not.toThrow();
+      expect(() => clearLearningItems()).not.toThrow();
+    } finally {
+      setItem.mockRestore();
+      removeItem.mockRestore();
     }
   });
 });
