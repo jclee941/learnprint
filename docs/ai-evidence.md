@@ -48,7 +48,7 @@ AI는 `LearningAnalyzer` 인터페이스와 `analyzeLearningItems` 함수를 제
 **최종 반영 결과**
 
 - `src/lib/ai/analyzer.ts` 구현 완료
-- 관련 테스트 5개 작성 및 전체 통과
+- 관련 단위 테스트 작성 및 전체 통과
 
 ---
 
@@ -71,7 +71,7 @@ AI는 `saveLearningItems`, `loadLearningItems`, `clearLearningItems` 함수와 `
 **최종 반영 결과**
 
 - `src/lib/storage/storage.ts` 구현 완료
-- 관련 테스트 5개 작성 및 전체 통과
+- 관련 단위 테스트 작성 및 전체 통과
 
 ---
 

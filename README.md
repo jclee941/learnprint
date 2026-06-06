@@ -25,7 +25,7 @@ HYCU 학습 이력서(learnprint)는 사이버대학교에서 쌓은 강의·과
 ## 기술 스택
 
 - React 19 + Vite 6 + TypeScript (strict)
-- Vitest (50 단위 테스트)
+- Vitest (현재 HEAD 기준 78개 테스트; 공모전 제출 동결본은 50개)
 - Node.js `node:http` BFF — OpenAI 호환 LLM(cliproxy) SSE 스트리밍 프록시
 - LLM 백엔드: cliproxy (OpenAI/Gemini/Claude/Codex 호환)
 
