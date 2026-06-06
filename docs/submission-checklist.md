@@ -171,19 +171,19 @@
 ## 제출 파일 구조 예시
 
 ```
-제출_2026HYCU_AI학습법_홍길동/
-├── 1_참가신청서_홍길동.docx
-├── 2_개인정보수집동의서_홍길동.docx
-├── 3_AI활용증빙자료_홍길동.docx
-├── 4_학습법사례보고서_홍길동.pdf
-├── 5_소스코드_learnprint.zip
-├── 6_실행화면캡처/
-│   ├── 01_입력폼.png
-│   ├── 02_목록.png
-│   ├── 03_이력서생성.png
-│   └── 04_내보내기.png
-├── 7_시연영상_홍길동.mp4
-└── 8_빌드테스트통과로그.txt
+submission_2026HYCU_AI-learning_<name>/
+├── 1_application-form_<name>.docx
+├── 2_consent-form_<name>.docx
+├── 3_ai-evidence_<name>.docx
+├── 4_case-report_<name>.pdf
+├── 5_source-code_learnprint.zip
+├── 6_screenshots/
+│   ├── 01_input-form.png
+│   ├── 02_list.png
+│   ├── 03_resume-generated.png
+│   └── 04_export.png
+├── 7_demo-video_<name>.mp4
+└── 8_build-test-log.txt
 ```
 
 > 메일 제목·파일명은 규칙 `2026AI학습법공모전_대표자명_학번_제목`을 따르며, parkjw@hycu.ac.kr 로 제출합니다.
