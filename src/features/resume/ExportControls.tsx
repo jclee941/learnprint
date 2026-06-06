@@ -11,11 +11,11 @@ export function ExportControls({ resume }: ExportControlsProps) {
   };
 
   const handleMarkdownExport = (): void => {
-    downloadTextFile("학습이력서.md", resumeToMarkdown(resume), "text/markdown");
+    downloadTextFile("learning-resume.md", resumeToMarkdown(resume), "text/markdown");
   };
 
   const handleJsonExport = (): void => {
-    downloadTextFile("학습이력서.json", resumeToJson(resume), "application/json");
+    downloadTextFile("learning-resume.json", resumeToJson(resume), "application/json");
   };
 
   return (
