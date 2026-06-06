@@ -1,6 +1,6 @@
 learnprint 검증 로그 (현재 HEAD 기준)
-생성: 2026-06-07 06:08:27 KST
-커밋: b377f05 (+ 본 개선 작업의 미커밋 변경 포함)
+생성: 2026-06-07 06:14:39 KST
+직전 커밋: f64cd29 (본 로그를 포함한 정리 커밋은 이 로그 생성 직후 수행)
 
 === npm test ===
  Test Files  20 passed (20)
@@ -16,4 +16,4 @@ learnprint 검증 로그 (현재 HEAD 기준)
 dist/index.html                   0.41 kB │ gzip:  0.30 kB
 dist/assets/index-ZIfoTPJf.css   15.60 kB │ gzip:  3.67 kB
 dist/assets/index-DsNIeAF_.js   214.66 kB │ gzip: 68.57 kB
-✓ built in 461ms
+✓ built in 435ms
