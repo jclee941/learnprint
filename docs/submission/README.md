@@ -44,9 +44,9 @@
 ```bash
 cd /home/jclee/dev/learnprint
 npm install
-cp .env.example .env   # LLM_BASE_URL / LLM_API_KEY / LLM_MODEL 설정 (AI 에이전트 사용 시)
 npm run build
-npm run serve     # http://localhost:4173 — dist 정적 서빙 + /api/agent/chat BFF 중계
+npm run build
+npm run serve     # http://localhost:4173 — dist 정적 서빙 (AI 에이전트 사용 시 .env 구성)
 ```
 
 > 데이터 출처 및 개인정보 제외 내역은 `docs/hycu-data-provenance.md` 참고.
