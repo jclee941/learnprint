@@ -27,7 +27,7 @@ export function LearningItemList({ items, onRemove }: LearningItemListProps) {
           {item.evidence && (
             <p className="item-evidence">
               <span>증거: </span>
-              {item.evidence.startsWith("http") ? (
+              {item.evidence.startsWith("http://") || item.evidence.startsWith("https://") ? (
                 <a href={item.evidence} target="_blank" rel="noreferrer">
                   {item.evidence}
                 </a>
@@ -37,7 +37,12 @@ export function LearningItemList({ items, onRemove }: LearningItemListProps) {
             </p>
           )}
 
-          <button className="secondary-action" type="button" onClick={() => onRemove(item.id)}>
+          <button
+            className="secondary-action"
+            type="button"
+            aria-label={`${item.title} 삭제`}
+            onClick={() => onRemove(item.id)}
+          >
             삭제
           </button>
         </article>
