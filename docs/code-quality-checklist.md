@@ -10,7 +10,7 @@
 | 기준 커밋 (제출 검증본) | `b0d438b` |
 | 개선 커밋 범위 | `4131856` … `6eac233` (10개 커밋) |
 | 변경 규모 | 20개 파일, +821 / −47 |
-| 테스트 | 50개 → **78개** (18개 파일) 전부 통과 |
+| 테스트 | 50개 → **90개** (20개 파일) 전부 통과 |
 | 타입체크 | `tsc --noEmit && tsc -p tsconfig.server.json` 통과 |
 | 빌드 | `vite build` 정상 |
 | 검토 | Oracle 리뷰 1차 지적(3건) 수정 후 재검증 통과 |
@@ -18,7 +18,7 @@
 검증 재현:
 
 ```bash
-npm test         # 78 passed (18 files)
+npm test         # 90 passed (20 files)
 npm run typecheck
 npm run build
 ```
@@ -100,7 +100,7 @@ npm run build
 - [x] **제출 패키지 동결(frozen) 정책 명시** — `6eac233`
   - 파일: `docs/submission/README.md`
   - 무엇: `docs/submission/` 전체가 검증 커밋 `b0d438b`(테스트 50개) 시점으로 의도적으로 동결되었음을 명시. 이후 커밋은 제출에 포함되지 않는 제출 후 개선임을 문서화.
-  - 왜: 제출 패키지의 "50개 테스트" 로그가 stale가 아니라 동결본임을 분명히 함(현재 HEAD의 78개와 혼동 방지).
+  - 왜: 제출 패키지의 "50개 테스트" 로그가 stale가 아니라 동결본임을 분명히 함(현재 HEAD의 90개와 혼동 방지).
   - 검증: README 내용 확인.
 
 ---
@@ -119,7 +119,7 @@ npm run build
 ## 7. 최종 검증 체크리스트 (Definition of Done)
 
 - [x] 모든 변경은 RED → GREEN(테스트 우선) → SURFACE 절차로 구현
-- [x] `npm test` 78개 전부 통과(테스트 삭제/스킵 없음)
+- [x] `npm test` 90개 전부 통과(테스트 삭제/스킵 없음)
 - [x] `npm run typecheck` 클린(앱 + 서버 tsconfig)
 - [x] `npm run build` 정상(`dist/` 생성)
 - [x] 변경 파일 LSP 진단 클린
