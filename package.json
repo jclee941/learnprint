@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "HYCU 학습 이력서 — 흩어진 학습 경험을 AI가 역량·증거 기반 이력서로 재구성 (2026 HYCU AI 학습법 공모전)",
+  "description": "HYCU 학습 이력서 — 흩어진 학습 경험을 결정론적 규칙 엔진이 역량·증거 기반 이력서로 재구성 (AI 코칭은 선택 보조; 2026 HYCU AI 학습법 공모전)",
   "scripts": {
     "dev": "vite",
     "serve": "tsx server/index.ts",

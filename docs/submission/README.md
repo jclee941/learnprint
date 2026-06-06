@@ -20,6 +20,7 @@
 | `04_input_form_demo.png` | 입력 시연 | 새 학습 경험(정보처리기사) 입력 폼 작성 화면 |
 | `05_resume_with_certificate.png` | 7건 이력서 | 자격증 항목 추가 후 재생성한 역량별 이력서 |
 | `06_live_deploy_learnprint_jclee_me.png` | 라이브 배포 | 공개 도메인 https://learnprint.jclee.me 에서 구동되는 실제 화면 |
+| `07_ai_agent_competency.png` | AI 에이전트(선택) | 선택 기능인 AI 학습 에이전트가 등록 이력을 컨텍스트로 역량을 분석·제안한 화면 |
 
 ## 2. 내보내기 산출물 (학습 데이터 기반)
 
@@ -44,7 +45,6 @@
 ```bash
 cd /home/jclee/dev/learnprint
 npm install
-npm run build
 npm run build
 npm run serve     # http://localhost:4173 — dist 정적 서빙 (AI 에이전트 사용 시 .env 구성)
 ```

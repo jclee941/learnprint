@@ -63,7 +63,7 @@ npm test
 npm run typecheck
 ```
 
-규칙 엔진 기반 이력서 생성·내보내기·인쇄는 별도 설정 없이 바로 동작합니다. AI 학습 에이전트를 사용하려면 `.env.example`을 `.env`로 복사해 LLM 엔드포인트(`LLM_BASE_URL`)·모델(`LLM_MODEL`) 등을 설정하세요. (`.env`는 gitignore 처리되어 커밋되지 않습니다.)
+규칙 엔진 기반 이력서 생성·내보내기·인쇄는 별도 설정 없이 바로 동작합니다. (선택) AI 학습 에이전트를 쓰려면 `.env.example`을 `.env`로 복사해 LLM 엔드포인트를 설정하세요 — 자세한 환경변수는 `.env.example` 참고.
 
 ## 디렉터리 구조
 
@@ -84,7 +84,7 @@ src/
   types/                    # 학습/이력서/에이전트 타입 정의
 server/                     # node:http BFF — AI 에이전트용 cliproxy SSE 프록시
   index.ts                  # /healthz, /api/agent/chat, dist 정적 서빙
-  static.ts validation.ts read-body.ts cliproxy.ts agent-handler.ts prompt.ts env.ts dotenv.ts
+  static.ts validation.ts read-body.ts cliproxy.ts agent-handler.ts prompt.ts env.ts dotenv.ts types.ts
 ```
 
 ## 개인정보 및 면책
@@ -98,4 +98,4 @@ server/                     # node:http BFF — AI 에이전트용 cliproxy SSE 
 
 - **대회**: 2026학년도 HYCU AI 학습법 공모전
 - **부문**: 부문 5 — AI 또는 바이브코딩으로 나만의 학습도구 제작
-- **형식**: 수기(학습법 사례보고서) — 제출 산출물은 `docs/submission/` 참고
+- **형식**: 수기(학습법 사례보고서) — 공모전에 실제 제출한 증빙 아카이브(동결 스냅샷)는 `docs/submission/` 참고
