@@ -7,6 +7,10 @@ interface ViteConfigWithTest extends UserConfig {
 }
 
 const config: ViteConfigWithTest = {
+  // GitHub Pages serves project sites under /<repo>/. The Pages workflow sets
+  // VITE_BASE=/learnprint/ for correct asset URLs; default "/" keeps the BFF
+  // (`npm run serve`) and dev server serving at root.
+  base: process.env.VITE_BASE ?? "/",
   plugins: [react()],
   server: {
     // UI 개발 서버에서 /api 요청을 BFF(server/index.ts, npm run serve)로 프록시
