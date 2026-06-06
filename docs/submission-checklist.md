@@ -60,7 +60,7 @@
 | 번호 | 자료명 | 형식 | 상태 | 비고 |
 |------|--------|------|------|------|
 | 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/learnprint-source.zip` 및 GitHub 저장소 |
-| 6 | **실행 화면 캘처** | PNG | ✅ 완료 | `docs/submission/screenshots/` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
+| 6 | **실행 화면 캡처** | PNG | ✅ 완료 | `docs/submission/screenshots/` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
 | 7 | **시연 영상** | MP4 (3분 이내 권장) | 미녹화 | 전체 사용 흐름을 녹화 (스크린샷으로 정적 화면은 확보)
 | 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/build-test-log.txt` (동결 스냅샷 50개 통과 / 현행 HEAD 90개 통과, 빌드 OK) |
 
