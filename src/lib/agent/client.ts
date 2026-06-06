@@ -9,12 +9,14 @@ type StreamAgentChatHandlers = {
 export async function streamAgentChat(
   request: AgentChatRequest,
   handlers: StreamAgentChatHandlers,
+  signal?: AbortSignal,
 ): Promise<void> {
   try {
     const response = await fetch("/api/agent/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(request),
+      signal,
     });
 
     if (!response.ok) {
@@ -46,7 +48,10 @@ export async function streamAgentChat(
 
     buffer += decoder.decode();
     if (buffer && handleSsePart(buffer, handlers)) return;
-  } catch {
+  } catch (error) {
+    // 요청 취소(AbortError)는 사용자에게 보이는 오류가 아니므로 조용히 종료한다.
+    if (error instanceof DOMException && error.name === "AbortError") return;
+    if (error instanceof Error && error.name === "AbortError") return;
     handlers.onError("AI 응답 처리 중 오류가 발생했습니다");
   }
 }
@@ -64,7 +69,13 @@ function handleSsePart(part: string, handlers: StreamAgentChatHandlers): boolean
     return true;
   }
 
-  const chunk = JSON.parse(payload) as { delta?: string; done?: boolean; error?: string };
+  let chunk: { delta?: string; done?: boolean; error?: string };
+  try {
+    chunk = JSON.parse(payload) as { delta?: string; done?: boolean; error?: string };
+  } catch {
+    // 손상된 data 블록 하나는 건너뛰고 스트림을 계속 처리한다.
+    return false;
+  }
   if (chunk.error) {
     handlers.onError(chunk.error);
     return true;

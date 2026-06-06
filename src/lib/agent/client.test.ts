@@ -119,4 +119,64 @@ describe("streamAgentChat", () => {
 
     expect(onError).toHaveBeenCalledWith(expect.stringMatching(/실패|오류/));
   });
+
+  it("agent-client:skips-malformed-sse-json-and-continues", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      sseResponse([
+        'data: {"delta":"A"}\n\n',
+        "data: {bad json}\n\n",
+        'data: {"delta":"B"}\n\n',
+        'data: {"delta":"","done":true}\n\n',
+      ]),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    let output = "";
+    const onError = vi.fn();
+    const onDone = vi.fn();
+
+    await streamAgentChat(request, {
+      onDelta: (text: string) => {
+        output += text;
+      },
+      onDone,
+      onError,
+    });
+
+    // Malformed block is skipped; valid deltas before/after still arrive.
+    expect(output).toBe("AB");
+    expect(onError).not.toHaveBeenCalled();
+    expect(onDone).toHaveBeenCalledOnce();
+  });
+
+  it("agent-client:passes-abort-signal-to-fetch", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(sseResponse(["data: [DONE]\n\n"]));
+    vi.stubGlobal("fetch", fetchMock);
+    const controller = new AbortController();
+
+    await streamAgentChat(
+      request,
+      { onDelta: vi.fn(), onDone: vi.fn(), onError: vi.fn() },
+      controller.signal,
+    );
+
+    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(init.signal).toBe(controller.signal);
+  });
+
+  it("agent-client:silent-on-abort-error", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => {
+      const err = new Error("aborted");
+      err.name = "AbortError";
+      return Promise.reject(err);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const onError = vi.fn();
+    const onDone = vi.fn();
+
+    await streamAgentChat(request, { onDelta: vi.fn(), onDone, onError });
+
+    // Abort is a silent cancellation, not a user-facing error.
+    expect(onError).not.toHaveBeenCalled();
+    expect(onDone).not.toHaveBeenCalled();
+  });
 });

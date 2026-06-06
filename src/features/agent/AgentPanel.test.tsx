@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { AgentPanel } from "./AgentPanel";
@@ -46,6 +46,51 @@ describe("AgentPanel", () => {
         mode: "competency",
       }),
       expect.any(Object),
+      expect.any(AbortSignal),
     );
+  });
+
+  it("agent-panel:passes-abort-signal-to-streamAgentChat", () => {
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    const call = vi.mocked(streamAgentChat).mock.calls.at(-1);
+    const signal = call?.[2];
+    expect(signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it("agent-panel:response-region-is-busy-while-loading", () => {
+    // streamAgentChat is mocked and never resolves -> stays in loading.
+    vi.mocked(streamAgentChat).mockImplementation(() => new Promise<void>(() => {}));
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    const region = screen.getByLabelText("AI 응답");
+    expect(region).toHaveAttribute("aria-busy", "true");
+  });
+
+  it("agent-panel:aborts-inflight-request-on-unmount", () => {
+    let capturedSignal: AbortSignal | undefined;
+    vi.mocked(streamAgentChat).mockImplementation((_req, _handlers, signal) => {
+      capturedSignal = signal;
+      return new Promise<void>(() => {});
+    });
+    const { unmount } = render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    expect(capturedSignal?.aborted).toBe(false);
+    unmount();
+    expect(capturedSignal?.aborted).toBe(true);
+  });
+
+  it("agent-panel:ignores-stale-callbacks-after-unmount", () => {
+    type Handlers = { onDelta: (t: string) => void; onError: (m: string) => void };
+    let captured: Handlers | undefined;
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+      captured = handlers as Handlers;
+      return new Promise<void>(() => {});
+    });
+    const { unmount } = render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    unmount();
+    // A late callback after unmount must not throw (no setState-after-unmount crash).
+    expect(() => act(() => captured?.onDelta("LATE"))).not.toThrow();
   });
 });

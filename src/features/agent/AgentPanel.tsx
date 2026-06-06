@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { SyntheticEvent } from "react";
 
 import { streamAgentChat } from "../../lib/agent/client";
@@ -24,10 +24,26 @@ export function AgentPanel({ items }: AgentPanelProps) {
   const [status, setStatus] = useState<AgentStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const abortRef = useRef<AbortController | null>(null);
+  const requestIdRef = useRef(0);
+
+  useEffect(() => {
+    // 언마운트 시 진행 중인 요청을 취소한다.
+    return () => abortRef.current?.abort();
+  }, []);
+
   const isDisabled = items.length === 0 || status === "loading" || status === "streaming";
 
   const runAgent = (mode: AgentMode, prompt: string): void => {
     if (items.length === 0) return;
+
+    // 이전 요청을 취소하고 새 요청 ID를 부여해 오래된 콜백을 무시한다.
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    requestIdRef.current += 1;
+    const requestId = requestIdRef.current;
+    const isCurrent = () => requestId === requestIdRef.current;
 
     const userMessage: AgentMessage = { role: "user", content: prompt };
     const requestMessages = [...messages, userMessage];
@@ -43,18 +59,23 @@ export function AgentPanel({ items }: AgentPanelProps) {
     setStatus("loading");
 
     void streamAgentChat(request, {
-      onDelta: (text) => {
-        setStatus("streaming");
-        setAssistantResponse((current) => current + text);
+        onDelta: (text) => {
+          if (!isCurrent()) return;
+          setStatus("streaming");
+          setAssistantResponse((current) => current + text);
+        },
+        onDone: () => {
+          if (!isCurrent()) return;
+          setStatus("done");
+        },
+        onError: (message) => {
+          if (!isCurrent()) return;
+          setErrorMessage(message || "AI 연결에 실패했습니다. 오프라인 이력서 생성은 계속 사용할 수 있습니다.");
+          setStatus("error");
+        },
       },
-      onDone: () => {
-        setStatus("done");
-      },
-      onError: (message) => {
-        setErrorMessage(message || "AI 연결에 실패했습니다. 오프라인 이력서 생성은 계속 사용할 수 있습니다.");
-        setStatus("error");
-      },
-    });
+      controller.signal,
+    );
   };
 
   const handleModeClick = (mode: AgentMode): void => {
@@ -122,7 +143,12 @@ export function AgentPanel({ items }: AgentPanelProps) {
         </div>
       )}
 
-      <div className="agent-response" aria-live="polite" aria-label="AI 응답">
+      <div
+        className="agent-response"
+        aria-live="polite"
+        aria-busy={status === "loading" || status === "streaming"}
+        aria-label="AI 응답"
+      >
         {status === "loading" && <p className="agent-loading">AI가 학습 이력을 분석하고 있습니다...</p>}
         {assistantResponse && <p className="agent-response-bubble">{assistantResponse}</p>}
         {status === "error" && <p className="agent-error">{errorMessage}</p>}
