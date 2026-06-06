@@ -31,9 +31,15 @@ export async function streamChatCompletion(
       const data = trimmed.slice(5).trim();
       if (data === "[DONE]") return false;
 
-      const parsed = JSON.parse(data) as {
-        choices?: { delta?: { content?: string } }[];
-      };
+      let parsed: { choices?: { delta?: { content?: string } }[] };
+      try {
+        parsed = JSON.parse(data) as {
+          choices?: { delta?: { content?: string } }[];
+        };
+      } catch {
+        // 손상된 업스트림 data 블록은 건너뛰고 계속 처리한다.
+        continue;
+      }
       const content = parsed.choices?.[0]?.delta?.content;
       if (content) onDelta(content);
     }

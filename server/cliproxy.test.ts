@@ -86,4 +86,28 @@ describe("streamChatCompletion", () => {
 
     await expect(streamChatCompletion(config, messages, vi.fn())).rejects.toThrow();
   });
+
+  it("cliproxy:skips-malformed-sse-json-and-continues", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        sseResponse([
+          'data: {"choices":[{"delta":{"content":"A"}}]}\n\n',
+          "data: {bad json}\n\n",
+          'data: {"choices":[{"delta":{"content":"B"}}]}\n\n',
+          "data: [DONE]\n\n",
+        ]),
+      ),
+    );
+    let text = "";
+
+    await expect(
+      streamChatCompletion(config, messages, (delta: string) => {
+        text += delta;
+      }),
+    ).resolves.toBeUndefined();
+
+    // Malformed block skipped; valid deltas before/after still arrive.
+    expect(text).toBe("AB");
+  });
 });
