@@ -28,7 +28,7 @@
 
 | 파일 | 설명 |
 |------|------|
-| `build-test-log.txt` | `npm test`(49개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 |
+| `build-test-log.txt` | `npm test`(50개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 |
 
 ## 4. 시연 영상 (별도 녹화 권장)
 
@@ -40,8 +40,9 @@
 ```bash
 cd /home/jclee/dev/learnprint
 npm install
+cp .env.example .env   # LLM_BASE_URL / LLM_API_KEY / LLM_MODEL 설정 (AI 에이전트 사용 시)
 npm run build
-npm run preview   # http://localhost:4173 에서 실제 화면 확인
+npm run serve     # http://localhost:4173 — dist 정적 서빙 + /api/agent/chat BFF 중계
 ```
 
 > 데이터 출처 및 개인정보 제외 내역은 `docs/hycu-data-provenance.md` 참고.

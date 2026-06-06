@@ -43,4 +43,14 @@ describe("loadDotEnv", () => {
     expect(loadDotEnv(file, env)).toBe(true);
     expect(env.LLM_API_KEY).toBe("abc");
   });
+
+  it("dotenv:strips-export-prefix", () => {
+    const file = join(dir, ".env");
+    writeFileSync(file, "export LLM_API_KEY=keyval\nexport LLM_MODEL=m\n");
+    const env: Record<string, string | undefined> = {};
+    loadDotEnv(file, env);
+    expect(env.LLM_API_KEY).toBe("keyval");
+    expect(env.LLM_MODEL).toBe("m");
+    expect(env["export LLM_API_KEY"]).toBeUndefined();
+  });
 });

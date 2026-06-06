@@ -15,7 +15,7 @@ export function loadDotEnv(
 
   const content = readFileSync(path, "utf8");
   for (const rawLine of content.split(/\r?\n/)) {
-    const line = rawLine.trim();
+    const line = rawLine.trim().replace(/^export\s+/, "");
     if (!line || line.startsWith("#")) continue;
 
     const eq = line.indexOf("=");
