@@ -83,14 +83,26 @@ describe("AgentPanel", () => {
   it("agent-panel:ignores-stale-callbacks-after-unmount", () => {
     type Handlers = { onDelta: (t: string) => void; onError: (m: string) => void };
     let captured: Handlers | undefined;
-    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+    let capturedSignal: AbortSignal | undefined;
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers, signal) => {
       captured = handlers as Handlers;
+      capturedSignal = signal;
       return new Promise<void>(() => {});
     });
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     const { unmount } = render(<AgentPanel items={[learningItem]} />);
     fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
     unmount();
-    // A late callback after unmount must not throw (no setState-after-unmount crash).
+    // Unmount must abort the in-flight request.
+    expect(capturedSignal?.aborted).toBe(true);
+    // A late callback after unmount must be ignored: no throw AND no
+    // React "setState on unmounted component" warning.
     expect(() => act(() => captured?.onDelta("LATE"))).not.toThrow();
+    expect(() => act(() => captured?.onError("LATE-ERR"))).not.toThrow();
+    const warned = errorSpy.mock.calls.some((args) =>
+      String(args[0]).includes("unmounted"),
+    );
+    expect(warned).toBe(false);
+    errorSpy.mockRestore();
   });
 });

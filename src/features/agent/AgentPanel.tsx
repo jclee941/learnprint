@@ -26,10 +26,16 @@ export function AgentPanel({ items }: AgentPanelProps) {
 
   const abortRef = useRef<AbortController | null>(null);
   const requestIdRef = useRef(0);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    // 언마운트 시 진행 중인 요청을 취소한다.
-    return () => abortRef.current?.abort();
+    mountedRef.current = true;
+    // 언마운트 시 진행 중인 요청을 취소하고 요청 ID를 무효화해 늦은 콜백을 무시한다.
+    return () => {
+      mountedRef.current = false;
+      requestIdRef.current += 1;
+      abortRef.current?.abort();
+    };
   }, []);
 
   const isDisabled = items.length === 0 || status === "loading" || status === "streaming";
@@ -43,7 +49,7 @@ export function AgentPanel({ items }: AgentPanelProps) {
     abortRef.current = controller;
     requestIdRef.current += 1;
     const requestId = requestIdRef.current;
-    const isCurrent = () => requestId === requestIdRef.current;
+    const isCurrent = () => mountedRef.current && requestId === requestIdRef.current;
 
     const userMessage: AgentMessage = { role: "user", content: prompt };
     const requestMessages = [...messages, userMessage];
@@ -65,10 +71,12 @@ export function AgentPanel({ items }: AgentPanelProps) {
           setAssistantResponse((current) => current + text);
         },
         onDone: () => {
+          if (controller === abortRef.current) abortRef.current = null;
           if (!isCurrent()) return;
           setStatus("done");
         },
         onError: (message) => {
+          if (controller === abortRef.current) abortRef.current = null;
           if (!isCurrent()) return;
           setErrorMessage(message || "AI 연결에 실패했습니다. 오프라인 이력서 생성은 계속 사용할 수 있습니다.");
           setStatus("error");
