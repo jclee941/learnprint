@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { resumeToJson, resumeToMarkdown } from "./exporters";
+import { resumeToEvidenceLedgerMarkdown, resumeToJson, resumeToMarkdown } from "./exporters";
 import type { LearningResume } from "../../types/resume";
 
 const fixtureResume: LearningResume = {
@@ -49,5 +49,35 @@ describe("resume exporters", () => {
 
   it("resume:json-roundtrips", () => {
     expect(JSON.parse(resumeToJson(fixtureResume))).toEqual(fixtureResume);
+  });
+
+  it("resume:evidence-ledger-includes-trace-table", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("# 역량 증거 원장");
+    expect(ledger).toContain("| 학습 경험 | 유형·기간 | 역량 | 증거 문장 |");
+    expect(ledger).toContain("데이터 분석 프로젝트");
+    expect(ledger).toContain("데이터 분석 역량");
+    expect(ledger).toContain("프로젝트, 2026.01 - 2026.03");
+    expect(ledger).toContain("Python으로 데이터를 분석");
+  });
+
+  it("resume:evidence-ledger-includes-limitation-note", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("결정론적 키워드 분류");
+    expect(ledger).toContain("성적·출석·LMS 원본을 자동 검증하지 않습니다");
+  });
+
+  it("resume:evidence-ledger-is-deterministic", () => {
+    expect(resumeToEvidenceLedgerMarkdown(fixtureResume)).toBe(
+      resumeToEvidenceLedgerMarkdown(fixtureResume),
+    );
+  });
+
+  it("resume:evidence-ledger-links-render-as-markdown", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("[링크](https://example.com/report)");
   });
 });

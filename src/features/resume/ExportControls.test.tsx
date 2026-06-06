@@ -39,6 +39,17 @@ describe("ExportControls", () => {
     );
   });
 
+  it("export-controls:evidence-ledger-export-uses-english-filename", () => {
+    const spy = vi.spyOn(exporters, "downloadTextFile").mockImplementation(() => {});
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "증거 원장 내보내기" }));
+    expect(spy).toHaveBeenCalledWith(
+      "learning-evidence-ledger.md",
+      expect.any(String),
+      "text/markdown",
+    );
+  });
+
   it("export-controls:print-button-calls-window-print", () => {
     const printSpy = vi.spyOn(window, "print").mockImplementation(() => {});
     render(<ExportControls resume={resume} />);

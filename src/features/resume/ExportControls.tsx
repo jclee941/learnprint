@@ -1,5 +1,5 @@
 import type { LearningResume } from "../../types/resume";
-import { downloadTextFile, resumeToJson, resumeToMarkdown } from "./exporters";
+import { downloadTextFile, resumeToEvidenceLedgerMarkdown, resumeToJson, resumeToMarkdown } from "./exporters";
 
 interface ExportControlsProps {
   resume: LearningResume;
@@ -18,6 +18,10 @@ export function ExportControls({ resume }: ExportControlsProps) {
     downloadTextFile("learning-resume.json", resumeToJson(resume), "application/json");
   };
 
+  const handleEvidenceLedgerExport = (): void => {
+    downloadTextFile("learning-evidence-ledger.md", resumeToEvidenceLedgerMarkdown(resume), "text/markdown");
+  };
+
   return (
     <div className="export-controls no-print" aria-label="이력서 내보내기 도구">
       <button type="button" onClick={handlePrint}>
@@ -28,6 +32,9 @@ export function ExportControls({ resume }: ExportControlsProps) {
       </button>
       <button type="button" onClick={handleJsonExport}>
         JSON 내보내기
+      </button>
+      <button type="button" onClick={handleEvidenceLedgerExport}>
+        증거 원장 내보내기
       </button>
     </div>
   );
