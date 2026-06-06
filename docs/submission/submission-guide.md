@@ -16,9 +16,9 @@
 | 구분 | 파일 | 작성본 위치 | 비고 |
 |------|------|------------|------|
 | 수기(본문) | 학습법 사례보고서 | `docs/case-report.md` | 공식 제출은 docx/PDF로 변환 |
-| 별첨1 | 참가신청서 | `docs/submission/별첨1_참가신청서.md` | 공식 양식 docx에 옮겨 기입 |
-| 별첨2 | 동의서 | `docs/submission/별첨2_동의서.md` | 공식 양식 docx에 옮겨 기입 |
-| 별첨3 | AI 활용 증빙자료 | `docs/submission/별첨3_AI증빙자료.md` | 선택/가산점 |
+| 별첨1 | 참가신청서 | `docs/submission/appendix1_application-form.md` | 공식 양식 docx에 옮겨 기입 |
+| 별첨2 | 동의서 | `docs/submission/appendix2_consent-form.md` | 공식 양식 docx에 옮겨 기입 |
+| 별첨3 | AI 활용 증빙자료 | `docs/submission/appendix3_ai-evidence.md` | 선택/가산점 |
 | 증빙 | 소스코드 ZIP | `docs/submission/learnprint-source.zip` | node_modules·.git·dist 제외 |
 | 증빙 | 실행 화면 캡처 | `docs/submission/screenshots/01~07_*.png` | 7장 |
 | 증빙 | 빌드/테스트 로그 | `docs/submission/build-test-log.txt` | 50개 테스트 통과 |
