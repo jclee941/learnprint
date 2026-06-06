@@ -1,0 +1,15 @@
+# 빌드·테스트 통과 로그
+생성: 2026-06-06 23:01:35
+
+## npm test
+ Test Files  13 passed (13)
+ Tests  49 passed (49)
+
+## npm run typecheck
+통과 (tsc --noEmit && tsc -p tsconfig.server.json)
+
+## npm run build
+dist/index.html                   0.41 kB │ gzip:  0.29 kB
+dist/assets/index-Bk1M_fgu.css   15.43 kB │ gzip:  3.62 kB
+dist/assets/index-hvjFT8wV.js   212.68 kB │ gzip: 67.87 kB
+✓ built in 449ms
