@@ -4,6 +4,7 @@ import { loadDotEnv } from "./dotenv";
 import { handleAgentChat } from "./agent-handler";
 import { loadLlmConfig } from "./env";
 import { serveStatic } from "./static";
+import { BodyTooLargeError, readBody } from "./read-body";
 import { validateAgentChatBody } from "./validation";
 import type { LlmConfig } from "./types";
 
@@ -11,28 +12,6 @@ import type { LlmConfig } from "./types";
 // env vars), so `npm run serve` works after `cp .env.example .env`.
 loadDotEnv(join(process.cwd(), ".env"));
 
-const MAX_BODY_BYTES = 1_000_000; // 1MB request-body limit for /api/agent/chat
-
-class BodyTooLargeError extends Error {}
-
-function readBody(req: Parameters<typeof handleRequest>[0]): Promise<string> {
-  return new Promise((resolveBody, reject) => {
-    let body = "";
-    let bytes = 0;
-    req.setEncoding("utf8");
-    req.on("data", (chunk: string) => {
-      bytes += Buffer.byteLength(chunk, "utf8");
-      if (bytes > MAX_BODY_BYTES) {
-        reject(new BodyTooLargeError("요청 본문이 너무 큽니다."));
-        req.destroy();
-        return;
-      }
-      body += chunk;
-    });
-    req.on("end", () => resolveBody(body));
-    req.on("error", reject);
-  });
-}
 
 async function handleRequest(
   req: import("node:http").IncomingMessage,
