@@ -45,7 +45,7 @@
 - React 19 + Vite 6 + TypeScript (strict)
 - 결정론적 역량 분석 엔진 (`src/lib/ai/analyzer.ts`) — 키워드 매칭 기반, 의존성 없음
 - Node.js `node:http` BFF — AI 에이전트용 OpenAI 호환 LLM(cliproxy) SSE 스트리밍 중계
-- Vitest — 101개 테스트 통과 (단위·컴포넌트·서버)
+- Vitest — 114개 테스트 통과 (단위·컴포넌트·서버)
 
 ## 설치 및 실행
 

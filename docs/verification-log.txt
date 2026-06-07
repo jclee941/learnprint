@@ -1,10 +1,10 @@
-learnprint 검증 로그 (현재 HEAD 기준)
-생성: 2026-06-07 19:17:54 KST
-HEAD 커밋: c391872 (현행화+고도화; 시드 증거에서 무의미한 LMS 도메인 표기 제거)
+learnprint 검증 로그 (현재 작업트리 기준)
+생성: 2026-06-07 19:54:00 KST
+기준: d96af70 이후 전체 기능 리뷰 개선 작업트리
 
 === npm test ===
- Test Files  21 passed (21)
-      Tests  100 passed (100)
+ Test Files  22 passed (22)
+      Tests  114 passed (114)
 
 === npm run typecheck ===
 > tsc --noEmit && tsc -p tsconfig.server.json
@@ -13,7 +13,7 @@ HEAD 커밋: c391872 (현행화+고도화; 시드 증거에서 무의미한 LMS 
 
 === npm run build ===
 ✓ 48 modules transformed.
-dist/index.html                   0.41 kB │ gzip:  0.30 kB
+dist/index.html                   0.41 kB │ gzip:  0.29 kB
 dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
-dist/assets/index-BCcCCIZq.js   217.14 kB │ gzip: 69.22 kB
-✓ built in 421ms
+dist/assets/index-BjUJEsgi.js   218.81 kB │ gzip: 69.79 kB
+✓ built in 1.16s
