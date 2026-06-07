@@ -10,6 +10,7 @@ interface UseLearningItemsResult {
   addItem: (draft: LearningItemDraft) => void;
   removeItem: (id: string) => void;
   clearAll: () => void;
+  restoreSample: () => void;
 }
 
 export function useLearningItems(): UseLearningItemsResult {
@@ -40,5 +41,10 @@ export function useLearningItems(): UseLearningItemsResult {
     setItems([]);
   };
 
-  return { items, addItem, removeItem, clearAll };
+  const restoreSample = (): void => {
+    setItems(createHycuSeedItems());
+  };
+
+  return { items, addItem, removeItem, clearAll, restoreSample };
 }
+

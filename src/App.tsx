@@ -6,13 +6,14 @@ import { LearningItemList } from "./features/analysis/LearningItemList";
 import { ExportControls, ResumeView } from "./features/resume";
 import { AgentPanel } from "./features/agent";
 import { useLearningItems } from "./hooks/useLearningItems";
-import { analyzeLearningItems } from "./lib/ai";
+import { analyzeLearningItems, countMeaningfulCompetencies } from "./lib/ai";
 import type { LearningResume } from "./types/resume";
 
 export default function App() {
-  const { items, addItem, removeItem } = useLearningItems();
+  const { items, addItem, removeItem, restoreSample } = useLearningItems();
   const [resume, setResume] = useState<LearningResume | null>(null);
   const [resumeItemSignature, setResumeItemSignature] = useState("");
+  const [coverage, setCoverage] = useState(0);
   const itemSignature = items.map((item) => `${item.id}:${item.createdAt}`).join("|");
   const isSubmissionReady = resume !== null && resumeItemSignature === itemSignature;
 
@@ -37,6 +38,14 @@ export default function App() {
       generatedAt: result.generatedAt,
     });
     setResumeItemSignature(itemSignature);
+    setCoverage(countMeaningfulCompetencies(result));
+  };
+
+  const handleReset = (): void => {
+    restoreSample();
+    setResume(null);
+    setResumeItemSignature("");
+    setCoverage(0);
   };
 
   return (
@@ -77,6 +86,14 @@ export default function App() {
 
           <AnalysisPanel items={items} onGenerate={handleGenerate} hasResume={isSubmissionReady} />
           <AgentPanel items={items} />
+          {items.length > 0 && (
+            <div className="learning-item-list-header">
+              <h2>등록된 학습 경험 목록</h2>
+              <button className="secondary-action" type="button" onClick={handleReset}>
+                전체 학습 경험 삭제
+              </button>
+            </div>
+          )}
           <LearningItemList items={items} onRemove={removeItem} />
         </section>
 
@@ -85,6 +102,7 @@ export default function App() {
             <div className="submission-package no-print">
               <p className="eyebrow">Ready to Submit</p>
               <h2>최종 제출물 패키지</h2>
+              <p className="coverage-summary">역량 {coverage}/6 커버리지</p>
               <p>이력서 본문을 확인한 뒤 제출 형식에 맞춰 Markdown, JSON, 증거 원장 또는 인쇄본으로 내보내세요.</p>
             </div>
             <ExportControls resume={resume} />

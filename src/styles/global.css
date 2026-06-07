@@ -709,6 +709,32 @@ h4 {
   background: #f8dfdf;
 }
 
+.learning-item-list-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.learning-item-list-header h2 {
+  margin-bottom: 0;
+}
+
+.coverage-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
 .resume-output {
   display: grid;
   gap: var(--space-4);

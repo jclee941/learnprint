@@ -39,4 +39,27 @@ describe("App", () => {
     expect(screen.queryByText("생성된 이력서가 준비되어 있습니다.")).not.toBeInTheDocument();
     expect(screen.getByText("출력 전")).toBeInTheDocument();
   });
+
+  it("app:reset-restores-seed-and-invalidates-submission", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "이력서 생성" }));
+    expect(screen.getByText("제출물 준비 완료")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "전체 학습 경험 삭제" }));
+
+    expect(screen.getByText("등록된 학습 경험 6개")).toBeInTheDocument();
+    expect(screen.getByText("컴퓨터구조론")).toBeInTheDocument();
+    expect(screen.queryByText("제출물 준비 완료")).toBeNull();
+    expect(screen.queryByText("최종 제출물 패키지")).toBeNull();
+    expect(screen.getByText("출력 전")).toBeInTheDocument();
+  });
+
+  it("app:shows-competency-coverage-after-generation", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "이력서 생성" }));
+
+    expect(screen.getByText(/역량 \d\/6 커버리지/)).toBeInTheDocument();
+  });
 });
