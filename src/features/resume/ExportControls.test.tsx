@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { LearningResume } from "../../types/resume";
 import { ExportControls } from "./ExportControls";
 import * as exporters from "./exporters";
+import { resumeToEvidenceLedgerMarkdown, resumeToJson, resumeToMarkdown } from "./exporters";
 
 const resume: LearningResume = {
   title: "학습 이력서",
@@ -15,6 +16,7 @@ const resume: LearningResume = {
 describe("ExportControls", () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("export-controls:markdown-export-uses-english-filename", () => {
@@ -56,4 +58,36 @@ describe("ExportControls", () => {
     fireEvent.click(screen.getByRole("button", { name: "인쇄" }));
     expect(printSpy).toHaveBeenCalledOnce();
   });
+  it("export-controls:markdown-copy-invokes-clipboard", () => {
+    const writeText = vi.fn();
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "Markdown 복사" }));
+    expect(writeText).toHaveBeenCalledWith(resumeToMarkdown(resume));
+  });
+
+  it("export-controls:json-copy-invokes-clipboard", () => {
+    const writeText = vi.fn();
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "JSON 복사" }));
+    expect(writeText).toHaveBeenCalledWith(resumeToJson(resume));
+  });
+
+  it("export-controls:evidence-ledger-copy-invokes-clipboard", () => {
+    const writeText = vi.fn();
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "증거 원장 복사" }));
+    expect(writeText).toHaveBeenCalledWith(resumeToEvidenceLedgerMarkdown(resume));
+  });
+
+  it("export-controls:clipboard-missing-is-silent", () => {
+    vi.stubGlobal("navigator", {});
+    render(<ExportControls resume={resume} />);
+    expect(() =>
+      fireEvent.click(screen.getByRole("button", { name: "Markdown 복사" })),
+    ).not.toThrow();
+  });
+
 });
