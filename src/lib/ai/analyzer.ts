@@ -170,6 +170,9 @@ export function createHeuristicAnalyzer(): LearningAnalyzer {
     analyze: analyzeLearningItems,
   };
 }
+export function countMeaningfulCompetencies(result: AnalysisResult): number {
+  return result.competencies.filter((competency) => !competency.label.includes("기타")).length;
+}
 
 function findBestCompetency(item: LearningItem): { competency: CompetencyCatalogEntry; score: number } {
   const searchableText = `${item.title} ${item.description} ${item.type}`.toLocaleLowerCase();

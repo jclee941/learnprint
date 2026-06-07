@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { createHycuSeedItems } from "../../data/hycu-seed";
-import { analyzeLearningItems } from "./analyzer";
+import { analyzeLearningItems, countMeaningfulCompetencies } from "./analyzer";
 import type { LearningItem } from "../../types/learning";
 import type { AnalysisResult, CompetencyGroup, Evidence } from "../../types/resume";
 
@@ -148,5 +148,26 @@ describe("analyzer hycu-course classification", () => {
     const meaningfulCompetencyCount = result.competencies.filter((competency) => !competency.label.includes("기타")).length;
 
     expect(meaningfulCompetencyCount).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe("countMeaningfulCompetencies", () => {
+  it("analyzer:coverage-counts-non-other-groups", () => {
+    const items = createHycuSeedItems();
+    const result: AnalysisResult = analyzeLearningItems(items);
+
+    const coverage = countMeaningfulCompetencies(result);
+    const expectedNonOtherCount = result.competencies.filter((competency) => !competency.label.includes("기타")).length;
+
+    expect(coverage).toEqual(expectedNonOtherCount);
+    expect(coverage).toBeGreaterThanOrEqual(3);
+    expect(coverage).toBeLessThanOrEqual(6);
+  });
+
+  it("analyzer:coverage-zero-for-empty", () => {
+    const emptyResult: AnalysisResult = analyzeLearningItems([]);
+
+    expect(emptyResult.isEmpty).toBe(true);
+    expect(countMeaningfulCompetencies(emptyResult)).toBe(0);
   });
 });
