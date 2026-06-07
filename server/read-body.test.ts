@@ -5,6 +5,11 @@ import type { IncomingMessage } from "node:http";
 import { describe, expect, it } from "vitest";
 import { BodyTooLargeError, readBody } from "./read-body";
 
+type MockIncomingMessage = IncomingMessage & {
+  destroyed: boolean;
+  paused: boolean;
+};
+
 /**
  * A controlled mock of IncomingMessage: an EventEmitter with setEncoding,
  * pause, resume, and destroy spies. Unlike Readable.from(), it never
@@ -12,22 +17,19 @@ import { BodyTooLargeError, readBody } from "./read-body";
  */
 function makeReq() {
   const emitter = new EventEmitter();
-  const req = emitter as unknown as IncomingMessage & {
-    destroyed: boolean;
-    paused: boolean;
-  };
+  const req = emitter as unknown as MockIncomingMessage;
   req.destroyed = false;
   req.paused = false;
-  req.setEncoding = (() => req) as IncomingMessage["setEncoding"];
+  req.setEncoding = (() => req) as MockIncomingMessage["setEncoding"];
   req.pause = (() => {
     req.paused = true;
     return req;
-  }) as IncomingMessage["pause"];
-  req.resume = (() => req) as IncomingMessage["resume"];
+  }) as MockIncomingMessage["pause"];
+  req.resume = (() => req) as MockIncomingMessage["resume"];
   req.destroy = (() => {
     req.destroyed = true;
     return req;
-  }) as IncomingMessage["destroy"];
+  }) as MockIncomingMessage["destroy"];
   return { req, emitter };
 }
 
