@@ -23,7 +23,7 @@ export function ExportControls({ resume }: ExportControlsProps) {
   };
 
   const handleCopy = (text: string): void => {
-    navigator.clipboard?.writeText(text);
+    void navigator.clipboard?.writeText(text).catch(() => undefined);
   };
 
   const handleMarkdownCopy = (): void => {
