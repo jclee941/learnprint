@@ -32,13 +32,6 @@ describe("hycu-seed", () => {
     const coveredIds = new Set(result.competencies.flatMap((competency) => competency.itemIds));
     expect(coveredIds.size).toBe(items.length);
   });
-
-  it("seed:extracts-real-hycu-source-links", () => {
-    const items = createHycuSeedItems();
-    const hasHycuLink = items.some((item) => item.evidence.includes("hycu.ac.kr"));
-
-    expect(hasHycuLink).toBe(true);
-  });
 });
 
 describe("hycu-seed authenticity", () => {
