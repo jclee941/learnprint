@@ -1,10 +1,10 @@
 learnprint 검증 로그 (현재 HEAD 기준)
-생성: 2026-06-07 06:14:39 KST
-직전 커밋: f64cd29 (본 로그를 포함한 정리 커밋은 이 로그 생성 직후 수행)
+생성: 2026-06-07 18:14:05 KST
+직전 커밋: 296874e (단일 페이지 워크플로 + 클립보드/리셋/역량 커버리지 고도화 반영)
 
 === npm test ===
- Test Files  20 passed (20)
-      Tests  90 passed (90)
+ Test Files  21 passed (21)
+      Tests  101 passed (101)
 
 === npm run typecheck ===
 > tsc --noEmit && tsc -p tsconfig.server.json
@@ -13,7 +13,7 @@ learnprint 검증 로그 (현재 HEAD 기준)
 
 === npm run build ===
 ✓ 48 modules transformed.
-dist/index.html                   0.41 kB │ gzip:  0.30 kB
-dist/assets/index-ZIfoTPJf.css   15.60 kB │ gzip:  3.67 kB
-dist/assets/index-DsNIeAF_.js   214.66 kB │ gzip: 68.57 kB
-✓ built in 435ms
+dist/index.html                   0.41 kB │ gzip:  0.29 kB
+dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
+dist/assets/index-BHzWv89-.js   217.10 kB │ gzip: 69.24 kB
+✓ built in 480ms
