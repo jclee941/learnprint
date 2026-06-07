@@ -1,5 +1,5 @@
 learnprint 검증 로그 (현재 작업트리 기준)
-생성: 2026-06-07 20:07:41 KST
+생성: 2026-06-07 20:09:09 KST
 기준: d96af70 이후 전체 기능 리뷰 개선 작업트리
 
 === npm test ===
@@ -16,4 +16,4 @@ learnprint 검증 로그 (현재 작업트리 기준)
 dist/index.html                   0.41 kB │ gzip:  0.29 kB
 dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
 dist/assets/index-CKv-sET8.js   218.88 kB │ gzip: 69.80 kB
-✓ built in 466ms
+✓ built in 1.54s
