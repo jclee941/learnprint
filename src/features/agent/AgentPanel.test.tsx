@@ -207,5 +207,29 @@ describe("AgentPanel", () => {
     expect(screen.queryByLabelText("AI 대화 기록")).not.toBeInTheDocument();
     expect(screen.getByText("모드를 선택하거나 질문을 보내면 AI 응답이 여기에 표시됩니다.")).toBeInTheDocument();
   });
-});
 
+  it("agent-panel:clear-history-aborts-inflight-stream-and-ignores-late-callbacks", async () => {
+    type Handlers = { onDelta: (t: string) => void; onDone: () => void; onError: (m: string) => void };
+    const captured: Handlers[] = [];
+    let capturedSignal: AbortSignal | undefined;
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers, signal) => {
+      captured.push(handlers as Handlers);
+      capturedSignal = signal;
+      return new Promise<void>(() => {});
+    });
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+
+    fireEvent.click(screen.getByRole("button", { name: "대화 기록 지우기" }));
+    expect(capturedSignal?.aborted).toBe(true);
+
+    await act(async () => {
+      captured[0].onDelta("늦은 응답");
+      captured[0].onDone();
+    });
+
+    expect(screen.queryByLabelText("AI 대화 기록")).not.toBeInTheDocument();
+    expect(screen.queryByText("늦은 응답")).not.toBeInTheDocument();
+    expect(screen.getByText("모드를 선택하거나 질문을 보내면 AI 응답이 여기에 표시됩니다.")).toBeInTheDocument();
+  });
+});

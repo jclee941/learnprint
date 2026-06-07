@@ -111,6 +111,9 @@ export function AgentPanel({ items }: AgentPanelProps) {
   };
 
   const handleClearHistory = (): void => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    requestIdRef.current += 1;
     setMessages([]);
     setAssistantResponse("");
     responseRef.current = "";

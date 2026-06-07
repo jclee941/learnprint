@@ -1,10 +1,10 @@
 learnprint 검증 로그 (현재 작업트리 기준)
-생성: 2026-06-07 19:54:00 KST
+생성: 2026-06-07 20:07:41 KST
 기준: d96af70 이후 전체 기능 리뷰 개선 작업트리
 
 === npm test ===
  Test Files  22 passed (22)
-      Tests  114 passed (114)
+      Tests  115 passed (115)
 
 === npm run typecheck ===
 > tsc --noEmit && tsc -p tsconfig.server.json
@@ -15,5 +15,5 @@ learnprint 검증 로그 (현재 작업트리 기준)
 ✓ 48 modules transformed.
 dist/index.html                   0.41 kB │ gzip:  0.29 kB
 dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
-dist/assets/index-BjUJEsgi.js   218.81 kB │ gzip: 69.79 kB
-✓ built in 1.16s
+dist/assets/index-CKv-sET8.js   218.88 kB │ gzip: 69.80 kB
+✓ built in 466ms

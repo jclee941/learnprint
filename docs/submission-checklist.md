@@ -62,7 +62,7 @@
 | 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/learnprint-source.zip` 및 GitHub 저장소 |
 | 6 | **실행 화면 캡처** | PNG | ✅ 완료 | `docs/submission/screenshots/` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
 | 7 | **시연 영상** | MP4 (3분 이내 권장) | 미녹화 | 전체 사용 흐름을 녹화 (스크린샷으로 정적 화면은 확보)
-| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/build-test-log.txt` (동결 스냅샷 50개 통과 / 현행 HEAD 114개 통과, 빌드 OK) |
+| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/build-test-log.txt` (동결 스냅샷 50개 통과 / 현행 HEAD 115개 통과, 빌드 OK) |
 
 ### 가산점·증빙 자료 (권장)
 
@@ -125,7 +125,7 @@
   npm test
   npm run build
   ```
-- [ ] 테스트 전체 통과 확인 (현행 HEAD 114개)
+- [ ] 테스트 전체 통과 확인 (현행 HEAD 115개)
 - [ ] `dist/` 폴더에 빌드 산출물 생성 확인
 
 ### Phase 7. 최종 검토 및 제출
@@ -141,7 +141,7 @@
 
 ### 앱 품질
 
-- [ ] `npm test` 실행 시 테스트 전체 통과 (현행 HEAD 114개)
+- [ ] `npm test` 실행 시 테스트 전체 통과 (현행 HEAD 115개)
 - [ ] `npm run build` 실행 시 오류 없이 `dist/` 생성
 - [ ] `npm run dev` 실행 시 브라우저에서 정상 동작
 - [ ] 학습 경험 추가 → 목록 확인 → 이력서 생성 → 내보내기 흐름이 오류 없이 작동
