@@ -27,6 +27,9 @@ export function AgentPanel({ items }: AgentPanelProps) {
   const abortRef = useRef<AbortController | null>(null);
   const requestIdRef = useRef(0);
   const mountedRef = useRef(true);
+  // 스트리밍 텍스트를 ref에도 누적해 onDone에서 stale-closure 없이 최종 본문을 읽는다.
+  const responseRef = useRef("");
+
 
   useEffect(() => {
     mountedRef.current = true;
@@ -59,6 +62,7 @@ export function AgentPanel({ items }: AgentPanelProps) {
       items,
     };
 
+    responseRef.current = "";
     setMessages(requestMessages);
     setAssistantResponse("");
     setErrorMessage("");
@@ -69,10 +73,18 @@ export function AgentPanel({ items }: AgentPanelProps) {
           if (!isCurrent()) return;
           setStatus("streaming");
           setAssistantResponse((current) => current + text);
+          responseRef.current += text;
         },
         onDone: () => {
           if (controller === abortRef.current) abortRef.current = null;
           if (!isCurrent()) return;
+          // 비어 있지 않은 최종 응답만 대화 기록에 추가해 다중 턴 문맥을 유지한다.
+          const completed = responseRef.current;
+          if (completed) {
+            setMessages((current) => [...current, { role: "assistant", content: completed }]);
+          }
+          responseRef.current = "";
+          setAssistantResponse("");
           setStatus("done");
         },
         onError: (message) => {
@@ -96,6 +108,14 @@ export function AgentPanel({ items }: AgentPanelProps) {
     const prompt = chatInput.trim() || MODE_PROMPTS.coach;
     runAgent("coach", prompt);
     setChatInput("");
+  };
+
+  const handleClearHistory = (): void => {
+    setMessages([]);
+    setAssistantResponse("");
+    responseRef.current = "";
+    setErrorMessage("");
+    setStatus("idle");
   };
 
   return (
@@ -141,14 +161,25 @@ export function AgentPanel({ items }: AgentPanelProps) {
       </form>
 
       {messages.length > 0 && (
-        <div className="agent-history" aria-label="AI 대화 기록">
-          {messages.map((message, index) => (
-            <p className="agent-message agent-message-user" key={`${message.role}-${index}-${message.content}`}>
-              <span>나</span>
-              {message.content}
-            </p>
-          ))}
-        </div>
+        <>
+          <button className="secondary-action no-print" type="button" onClick={handleClearHistory}>
+            대화 기록 지우기
+          </button>
+          <div className="agent-history" aria-label="AI 대화 기록">
+            {messages.map((message, index) => {
+              const isUser = message.role === "user";
+              return (
+                <p
+                  className={`agent-message ${isUser ? "agent-message-user" : "agent-message-assistant"}`}
+                  key={`${message.role}-${index}-${message.content}`}
+                >
+                  <span>{isUser ? "나" : "AI"}</span>
+                  {message.content}
+                </p>
+              );
+            })}
+          </div>
+        </>
       )}
 
       <div

@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { AgentPanel } from "./AgentPanel";
@@ -104,5 +104,108 @@ describe("AgentPanel", () => {
     );
     expect(warned).toBe(false);
     errorSpy.mockRestore();
+
+  });
+
+  it("agent-panel:appends-assistant-message-after-stream-done", async () => {
+    type Handlers = { onDelta: (t: string) => void; onDone: () => void; onError: (m: string) => void };
+    const captured: Handlers[] = [];
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+      captured.push(handlers as Handlers);
+      return new Promise<void>(() => {});
+    });
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    expect(captured).toHaveLength(1);
+
+    await act(async () => {
+      captured[0].onDelta("결과");
+      captured[0].onDelta("입니다");
+      captured[0].onDone();
+    });
+
+    const history = screen.getByLabelText("AI 대화 기록");
+    expect(within(history).getByText("결과입니다")).toBeInTheDocument();
+    expect(within(history).getByText("AI")).toBeInTheDocument();
+  });
+
+  it("agent-panel:next-request-includes-assistant-history", async () => {
+    type Handlers = { onDelta: (t: string) => void; onDone: () => void; onError: (m: string) => void };
+    const captured: Handlers[] = [];
+    vi.mocked(streamAgentChat).mockClear();
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+      captured.push(handlers as Handlers);
+      return new Promise<void>(() => {});
+    });
+    render(<AgentPanel items={[learningItem]} />);
+
+    // First turn via the competency button.
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    await act(async () => {
+      captured[0].onDelta("결과입니다");
+      captured[0].onDone();
+    });
+
+    // Second turn via the chat form so the next streamAgentChat invocation
+    // is forced to read the updated messages state.
+    const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
+    fireEvent.change(textarea, { target: { value: "추가 질문" } });
+    fireEvent.click(screen.getByRole("button", { name: "보내기" }));
+
+    expect(streamAgentChat).toHaveBeenCalledTimes(2);
+    const secondRequest = vi.mocked(streamAgentChat).mock.calls[1]?.[0];
+    expect(secondRequest).toBeDefined();
+    expect(
+      secondRequest!.messages.some(
+        (m) => m.role === "assistant" && m.content === "결과입니다",
+      ),
+    ).toBe(true);
+  });
+
+  it("agent-panel:empty-assistant-not-appended", async () => {
+    type Handlers = { onDelta: (t: string) => void; onDone: () => void; onError: (m: string) => void };
+    const captured: Handlers[] = [];
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+      captured.push(handlers as Handlers);
+      return new Promise<void>(() => {});
+    });
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+
+    // onDone without any onDelta — no assistant content was streamed.
+    await act(async () => {
+      captured[0].onDone();
+    });
+
+    const history = screen.getByLabelText("AI 대화 기록");
+    expect(within(history).queryByText("AI")).not.toBeInTheDocument();
+    expect(
+      within(history).getByText(
+        "내 학습 이력으로 핵심 역량과 자기소개 문단을 작성해줘.",
+      ),
+    ).toBeInTheDocument();
+
+  });
+
+  it("agent-panel:clear-history-removes-chat-history", async () => {
+    type Handlers = { onDelta: (t: string) => void; onDone: () => void; onError: (m: string) => void };
+    const captured: Handlers[] = [];
+    vi.mocked(streamAgentChat).mockImplementation((_req, handlers) => {
+      captured.push(handlers as Handlers);
+      return new Promise<void>(() => {});
+    });
+    render(<AgentPanel items={[learningItem]} />);
+    fireEvent.click(screen.getByRole("button", { name: "AI 역량 분석" }));
+    await act(async () => {
+      captured[0].onDelta("결과입니다");
+      captured[0].onDone();
+    });
+
+    expect(screen.getByLabelText("AI 대화 기록")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "대화 기록 지우기" }));
+
+    expect(screen.queryByLabelText("AI 대화 기록")).not.toBeInTheDocument();
+    expect(screen.getByText("모드를 선택하거나 질문을 보내면 AI 응답이 여기에 표시됩니다.")).toBeInTheDocument();
   });
 });
+
