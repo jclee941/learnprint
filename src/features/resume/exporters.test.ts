@@ -91,6 +91,43 @@ describe("resume exporters", () => {
     );
   });
 
+  it("resume:markdown-invalid-generated-at-renders-dash", () => {
+    const markdown = resumeToMarkdown({ ...fixtureResume, generatedAt: NaN });
+
+    expect(markdown).toContain("생성일: —");
+    expect(markdown).not.toContain("Invalid Date");
+  });
+
+  it("resume:evidence-ledger-invalid-generated-at-renders-dash", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown({ ...fixtureResume, generatedAt: NaN });
+
+    expect(ledger).toContain("생성일: —");
+    expect(ledger).not.toContain("Invalid Date");
+  });
+
+  it("resume:markdown-omits-period-comma-when-period-empty", () => {
+    const resume: LearningResume = {
+      ...fixtureResume,
+      competencies: [
+        {
+          ...fixtureResume.competencies[0],
+          evidence: [
+            {
+              ...fixtureResume.competencies[0].evidence[0],
+              type: "강의",
+              period: "",
+            },
+          ],
+        },
+      ],
+    };
+
+    const markdown = resumeToMarkdown(resume);
+
+    expect(markdown).toContain("(강의)");
+    expect(markdown).not.toContain("(강의, )");
+  });
+
   it("resume:evidence-ledger-links-render-as-markdown", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 

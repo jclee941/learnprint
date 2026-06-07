@@ -90,4 +90,20 @@ describe("ExportControls", () => {
     ).not.toThrow();
   });
 
+  it("export-controls:markdown-copy-shows-success-status", async () => {
+    const writeText = vi.fn(() => Promise.resolve());
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "Markdown 복사" }));
+    expect(await screen.findByRole("status")).toHaveTextContent("복사됨");
+  });
+
+  it("export-controls:copy-shows-failure-status", async () => {
+    const writeText = vi.fn(() => Promise.reject(new Error("denied")));
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    render(<ExportControls resume={resume} />);
+    fireEvent.click(screen.getByRole("button", { name: "Markdown 복사" }));
+    expect(await screen.findByRole("status")).toHaveTextContent("복사 실패");
+  });
+
 });

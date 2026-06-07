@@ -5,7 +5,9 @@ interface ResumeViewProps {
 }
 
 export function ResumeView({ resume }: ResumeViewProps) {
-  const generatedDate = new Date(resume.generatedAt).toLocaleDateString("ko-KR");
+  const generatedDate = Number.isFinite(resume.generatedAt)
+    ? new Date(resume.generatedAt).toLocaleDateString("ko-KR")
+    : "—";
 
   return (
     <article className="resume" aria-label="생성된 학습 이력서">

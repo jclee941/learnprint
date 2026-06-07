@@ -1,11 +1,42 @@
+import { useEffect, useRef, useState } from "react";
 import type { LearningResume } from "../../types/resume";
 import { downloadTextFile, resumeToEvidenceLedgerMarkdown, resumeToJson, resumeToMarkdown } from "./exporters";
+
+type CopyStatus = "success" | "failure";
+const COPY_STATUS_DURATION_MS = 2000;
 
 interface ExportControlsProps {
   resume: LearningResume;
 }
 
 export function ExportControls({ resume }: ExportControlsProps) {
+  const [copyStatus, setCopyStatus] = useState<CopyStatus | null>(null);
+  const copyStatusTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      if (copyStatusTimeoutRef.current !== null) {
+        clearTimeout(copyStatusTimeoutRef.current);
+        copyStatusTimeoutRef.current = null;
+      }
+    };
+  }, []);
+
+  const scheduleCopyStatusClear = (): void => {
+    if (copyStatusTimeoutRef.current !== null) {
+      clearTimeout(copyStatusTimeoutRef.current);
+    }
+    copyStatusTimeoutRef.current = setTimeout(() => {
+      if (mountedRef.current) {
+        setCopyStatus(null);
+      }
+      copyStatusTimeoutRef.current = null;
+    }, COPY_STATUS_DURATION_MS);
+  };
+
   const handlePrint = (): void => {
     window.print();
   };
@@ -22,14 +53,30 @@ export function ExportControls({ resume }: ExportControlsProps) {
     downloadTextFile("learning-evidence-ledger.md", resumeToEvidenceLedgerMarkdown(resume), "text/markdown");
   };
 
+  const reportCopyOutcome = (status: CopyStatus): void => {
+    if (!mountedRef.current) return;
+    setCopyStatus(status);
+    scheduleCopyStatusClear();
+  };
+
   const handleCopy = (text: string): void => {
     try {
-      const result = navigator.clipboard?.writeText(text);
-      if (result && typeof result.catch === "function") {
-        void result.catch(() => undefined);
+      if (!navigator.clipboard) {
+        reportCopyOutcome("failure");
+        return;
+      }
+      const result = navigator.clipboard.writeText(text);
+      if (result && typeof result.then === "function") {
+        void result.then(
+          () => reportCopyOutcome("success"),
+          () => reportCopyOutcome("failure"),
+        );
+      } else {
+        reportCopyOutcome("success");
       }
     } catch {
       // 클립보드 API 미지원/권한 거부 시에도 조용히 무시한다.
+      reportCopyOutcome("failure");
     }
   };
 
@@ -68,6 +115,9 @@ export function ExportControls({ resume }: ExportControlsProps) {
       <button type="button" onClick={handleEvidenceLedgerCopy}>
         증거 원장 복사
       </button>
+      <span className="export-controls__status" role="status" aria-live="polite">
+        {copyStatus === "success" ? "복사됨" : copyStatus === "failure" ? "복사 실패" : ""}
+      </span>
     </div>
   );
 }

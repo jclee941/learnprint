@@ -1,7 +1,12 @@
 import type { LearningResume } from "../../types/resume";
+function formatGeneratedDate(generatedAt: number): string {
+  return Number.isFinite(generatedAt)
+    ? new Date(generatedAt).toLocaleDateString("ko-KR")
+    : "—";
+}
 
 export function resumeToMarkdown(resume: LearningResume): string {
-  const generatedDate = new Date(resume.generatedAt).toLocaleDateString("ko-KR");
+  const generatedDate = formatGeneratedDate(resume.generatedAt);
   const lines = [`# ${resume.title}`, "", resume.summary, "", `생성일: ${generatedDate}`];
 
   for (const competency of resume.competencies) {
@@ -9,7 +14,10 @@ export function resumeToMarkdown(resume: LearningResume): string {
 
     for (const evidence of competency.evidence) {
       const linkText = evidence.link ? ` [링크](${evidence.link})` : "";
-      lines.push(`- **${evidence.title}** (${evidence.type}, ${evidence.period}): ${evidence.snippet}${linkText}`);
+      const typeAndPeriod = evidence.period
+        ? `(${evidence.type}, ${evidence.period})`
+        : `(${evidence.type})`;
+      lines.push(`- **${evidence.title}** ${typeAndPeriod}: ${evidence.snippet}${linkText}`);
     }
   }
 
@@ -25,7 +33,7 @@ function escapeTableCell(text: string): string {
 }
 
 export function resumeToEvidenceLedgerMarkdown(resume: LearningResume): string {
-  const generatedDate = new Date(resume.generatedAt).toLocaleDateString("ko-KR");
+  const generatedDate = formatGeneratedDate(resume.generatedAt);
   const lines = [
     "# \uC5ED\uB7C9 \uC99D\uAC70 \uC6D0\uC7A5",
     "",
