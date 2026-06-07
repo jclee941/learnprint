@@ -10,7 +10,7 @@ import { analyzeLearningItems, countMeaningfulCompetencies } from "./lib/ai";
 import type { LearningResume } from "./types/resume";
 
 export default function App() {
-  const { items, addItem, removeItem, restoreSample } = useLearningItems();
+  const { items, addItem, removeItem, clearAll, restoreSample } = useLearningItems();
   const [resume, setResume] = useState<LearningResume | null>(null);
   const [resumeItemSignature, setResumeItemSignature] = useState("");
   const [coverage, setCoverage] = useState(0);
@@ -41,11 +41,23 @@ export default function App() {
     setCoverage(countMeaningfulCompetencies(result));
   };
 
-  const handleReset = (): void => {
-    restoreSample();
+  const invalidateResume = (): void => {
     setResume(null);
     setResumeItemSignature("");
     setCoverage(0);
+  };
+
+  const handleRestoreSample = (): void => {
+    restoreSample();
+    invalidateResume();
+  };
+
+  const handleClearAll = (): void => {
+    if (!window.confirm("등록된 학습 경험을 모두 삭제할까요? 이력서도 함께 초기화됩니다.")) {
+      return;
+    }
+    clearAll();
+    invalidateResume();
   };
 
   return (
@@ -89,8 +101,11 @@ export default function App() {
           {items.length > 0 && (
             <div className="learning-item-list-header">
               <h2>등록된 학습 경험 목록</h2>
-              <button className="secondary-action" type="button" onClick={handleReset}>
-                전체 학습 경험 삭제
+              <button className="secondary-action" type="button" onClick={handleRestoreSample}>
+                샘플 불러오기
+              </button>
+              <button className="secondary-action" type="button" onClick={handleClearAll}>
+                전체 삭제
               </button>
             </div>
           )}
