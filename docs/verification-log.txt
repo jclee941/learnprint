@@ -1,6 +1,6 @@
 learnprint 검증 로그 (현재 HEAD 기준)
-생성: 2026-06-07 18:14:05 KST
-직전 커밋: 296874e (단일 페이지 워크플로 + 클립보드/리셋/역량 커버리지 고도화 반영)
+생성: 2026-06-07 18:30:44 KST
+HEAD 커밋: 6dda644 (현행화: 테스트 90→101 / 고도화: 클립보드 복사·전체 리셋·역량 N/6 커버리지)
 
 === npm test ===
  Test Files  21 passed (21)
@@ -13,7 +13,7 @@ learnprint 검증 로그 (현재 HEAD 기준)
 
 === npm run build ===
 ✓ 48 modules transformed.
-dist/index.html                   0.41 kB │ gzip:  0.29 kB
+dist/index.html                   0.41 kB │ gzip:  0.30 kB
 dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
-dist/assets/index-BHzWv89-.js   217.10 kB │ gzip: 69.24 kB
-✓ built in 480ms
+dist/assets/index-CSN2cSLa.js   217.11 kB │ gzip: 69.24 kB
+✓ built in 432ms
