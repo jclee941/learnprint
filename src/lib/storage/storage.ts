@@ -1,6 +1,23 @@
-import type { LearningItem } from "../../types/learning";
+import { LEARNING_ITEM_TYPES, type LearningItem } from "../../types/learning";
 
 export const STORAGE_KEY = "hycu-learning-resume:items:v1";
+
+function isValidLearningItem(x: unknown): x is LearningItem {
+  if (typeof x !== "object" || x === null) return false;
+  const item = x as Record<string, unknown>;
+  return (
+    typeof item.id === "string" &&
+    item.id !== "" &&
+    typeof item.title === "string" &&
+    typeof item.type === "string" &&
+    (LEARNING_ITEM_TYPES as readonly string[]).includes(item.type) &&
+    typeof item.period === "string" &&
+    typeof item.description === "string" &&
+    typeof item.evidence === "string" &&
+    typeof item.createdAt === "number" &&
+    Number.isFinite(item.createdAt)
+  );
+}
 
 export function loadLearningItems(): LearningItem[] {
   let storedItems: string | null;
@@ -17,7 +34,7 @@ export function loadLearningItems(): LearningItem[] {
   try {
     const parsedItems: unknown = JSON.parse(storedItems);
 
-    return Array.isArray(parsedItems) ? parsedItems : [];
+    return Array.isArray(parsedItems) ? parsedItems.filter(isValidLearningItem) : [];
   } catch {
     return [];
   }

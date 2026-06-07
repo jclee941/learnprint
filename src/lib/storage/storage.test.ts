@@ -37,6 +37,34 @@ describe("storage", () => {
     expect(loadLearningItems()).toEqual(learningItems);
   });
 
+  it("storage:corrupt-item-filtered-out", () => {
+    const validItem: LearningItem = {
+      id: "valid-1",
+      title: "Valid Item",
+      type: LEARNING_ITEM_TYPES[0],
+      period: "2026-01-01",
+      description: "Valid description",
+      evidence: "https://example.com/valid",
+      createdAt: 1,
+    };
+    const mixedArray = [
+      validItem,
+      { id: "x", title: "X", type: "INVALID_TYPE", period: "", description: "", evidence: "", createdAt: 1 },
+      { id: "missing-title", type: LEARNING_ITEM_TYPES[0], period: "", description: "", evidence: "", createdAt: 1 },
+      "not-an-object",
+      null,
+    ];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(mixedArray));
+
+    expect(loadLearningItems()).toEqual([validItem]);
+  });
+
+  it("storage:valid-items-kept", () => {
+    saveLearningItems(learningItems);
+
+    expect(loadLearningItems()).toEqual(learningItems);
+  });
+
   it("storage:corrupt-json-returns-default", () => {
     localStorage.setItem(STORAGE_KEY, "{not valid json");
 
