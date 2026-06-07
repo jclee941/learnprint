@@ -23,7 +23,14 @@ export function ExportControls({ resume }: ExportControlsProps) {
   };
 
   const handleCopy = (text: string): void => {
-    void navigator.clipboard?.writeText(text).catch(() => undefined);
+    try {
+      const result = navigator.clipboard?.writeText(text);
+      if (result && typeof result.catch === "function") {
+        void result.catch(() => undefined);
+      }
+    } catch {
+      // 클립보드 API 미지원/권한 거부 시에도 조용히 무시한다.
+    }
   };
 
   const handleMarkdownCopy = (): void => {
