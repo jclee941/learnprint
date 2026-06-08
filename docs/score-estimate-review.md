@@ -57,7 +57,7 @@
 
 - `learnprint-source.zip` (3.6M), `source-code_learnprint.zip` (3.6M), `screenshots.zip` (3.4M) — **모두 50MB 한도 내**
 - `.env`/secret/`.key`/credential/`node_modules`/`.git` 포함 없음 (`.env.example`만 존재)
-- API key 패턴(`sk-...`, `api_key=...`), private key(`BEGIN ... PRIVATE`) 패턴 **검출 없음**
+- **실제 secret 값·private key 미검출**: API key 할당 패턴(`sk-...`, `api_key=...`), private key(`BEGIN ... PRIVATE`) 모두 없음. (단, `API_KEY` 같은 **환경변수명**은 `.env.example`·`server/env.ts`·테스트 코드에 존재하나 이는 키 값이 아닌 이름·예제·테스트용임)
 
 ### (참고) 기술 주장 검증 — **✅ 통과**
 
