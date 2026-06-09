@@ -4,6 +4,17 @@
 
 **🔗 라이브 데모**: <https://learnprint.jclee.me> — 설치 없이 브라우저에서 바로 체험할 수 있습니다 (첫 실행 시 HYCU 수강 과목 시드 자동 주입). 라이브가 접속되지 않을 때는 아래 "설치 및 실행"으로 동일하게 로컬 재현할 수 있습니다.
 
+## 검증 현황
+
+| 항목 | 상태 | 근거 |
+|------|------|------|
+| 라이브 배포 | ✅ HTTP 200 | `https://learnprint.jclee.me` · `/healthz` → `{"status":"ok"}` |
+| 테스트 | ✅ 115/115 통과 | Vitest 22개 파일 (단위·컴포넌트·서버) |
+| 타입체크 | ✅ 오류 없음 | `tsc --noEmit` + `tsconfig.server.json` |
+| 프로덕션 빌드 | ✅ 성공 | `dist/` 생성 (JS gzip 69.8KB) |
+
+> 재검증 로그: `docs/verification-log.txt` · 점수 예상 점검: `docs/score-estimate-review.md`
+
 ## 프로젝트 개요
 
 사이버대학교에서 쌓은 강의·과제·프로젝트·자격증·독학·대회 등 **흩어진 학습 경험을 한 곳에 입력하면**, 결정론적 규칙 엔진이 이를 **6개 핵심 역량(+ 기타 학습 경험 폴백)으로 자동 분류하고 각 학습 흔적을 "증거(evidence)"로 연결한 학습 이력서**로 재구성합니다. 결과는 Markdown·JSON·증거 원장(Evidence Ledger)으로 내보내거나 브라우저 인쇄로 깔끔하게 출력할 수 있습니다.
@@ -99,3 +110,4 @@ server/                     # node:http BFF — AI 에이전트용 cliproxy SSE 
 - **대회**: 2026학년도 HYCU AI 학습법 공모전
 - **부문**: 부문 5 — AI 또는 바이브코딩으로 나만의 학습도구 제작
 - **형식**: 수기(학습법 사례보고서) — 공모전에 실제 제출한 증빙 아카이브(동결 스냅샷)는 `docs/submission/` 참고
+- **사례보고서**: 전체 본문 `docs/case-report.md` · 심사용 1~2쪽 요약본 `docs/case-report-summary.md`

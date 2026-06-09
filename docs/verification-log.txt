@@ -1,6 +1,10 @@
 learnprint 검증 로그 (현재 작업트리 기준)
-생성: 2026-06-07 20:09:09 KST
-기준: d96af70 이후 전체 기능 리뷰 개선 작업트리
+생성: 2026-06-09 20:18:13 KST
+기준: 53761e0 (HEAD) 재검증
+
+=== 라이브 배포 ===
+GET https://learnprint.jclee.me        → HTTP 200 (1.08s, 1325B)
+GET https://learnprint.jclee.me/healthz → {"status":"ok"}
 
 === npm test ===
  Test Files  22 passed (22)
@@ -16,4 +20,4 @@ learnprint 검증 로그 (현재 작업트리 기준)
 dist/index.html                   0.41 kB │ gzip:  0.29 kB
 dist/assets/index-DGm3SY9r.css   17.58 kB │ gzip:  3.93 kB
 dist/assets/index-CKv-sET8.js   218.88 kB │ gzip: 69.80 kB
-✓ built in 1.54s
+✓ built in 498ms
