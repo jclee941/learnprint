@@ -6,7 +6,7 @@
 
 **라이브 배포(공개 DNS)**: https://learnprint.jclee.me — Cloudflare Tunnel(named)로 노출된 실제 구동 주소.
 
-> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (커밋 `54a0e9e`) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 115개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
+> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (master 최신 커밋) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 115개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
 
 > **파일명 영문화 안내**: 저장소 정리 차원에서 한글 파일·폴더명을 영문으로 변경했습니다(`별첨1_참가신청서`→`appendix1_application-form`, `제출본`→`final`, `증빙자료`→`evidence`, `학습법사례보고서`→`case-report` 등). 실제 공모전 이메일 제출 시 파일명은 요강 규칙(`2026AI학습법공모전_대표자명_학번_제목`)에 맞춰 지정하면 됩니다. (신청자 정보·서명은 final docx에 기입 완료)
 
@@ -33,12 +33,13 @@
 
 | 파일 | 설명 |
 |------|------|
-| `build-test-log.txt` | `npm test`(50개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 |
+| `build-test-log.txt` | `npm test`(현행 HEAD 115개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
 
-## 4. 시연 영상 (별도 녹화 권장)
+## 4. 시연 영상 ✅ 완료
 
-스크린샷으로 정적 화면은 확보했으며, 동적 시연 영상은 다음 흐름으로 녹화하면 됩니다(`docs/submission-checklist.md` 참고):
-입력 → 목록 → 이력서 생성 → 내보내기/인쇄.
+전체 사용 흐름을 자동 녹화한 시연 영상입니다 (1280×720, ~31초, H.264):
+- `final/evidence/demo-video.mp4` (및 복본 `04_demo_video.mp4`)
+- 흐름: 메인·시드 6과목 → 학습 경험 입력(자격증) → 이력서 생성 → 역량별 그룹 → 내보내기 → AI 에이전트 패널
 
 ## 재현 방법
 

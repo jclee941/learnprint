@@ -91,31 +91,19 @@
 ### Phase 3. AI 활용 증빙자료 작성
 
 - [x] `docs/ai-evidence.md` 초안을 별첨 3 공식 양식(docx)으로 완성 (`docs/submission/final/appendix3_ai-evidence.docx`)
-- [ ] 사용한 AI 도구명 정확히 기입
-- [ ] 대표 프롬프트 2~3개 선정 및 정리
-- [ ] 확인사항 전체 체크
+- [x] 사용한 AI 도구명 정확히 기입 (OpenCode AI 코딩 어시스턴트 / LLM 학습 에이전트)
+- [x] 대표 프롬프트 2~3개 선정 및 정리 (`docs/ai-evidence.md` §3~§4)
+- [x] 확인사항 전체 체크 (`appendix3_ai-evidence.docx` §9)
 
 ### Phase 4. 결과물 패키징
 
-- [ ] 소스코드 정리: `.gitignore`, `node_modules` 제외한 ZIP 생성
-  ```bash
-  # ZIP 생성 예시 (macOS/Linux)
-  zip -r learnprint-source.zip . -x "node_modules/*" -x ".git/*" -x "dist/*"
-  ```
-- [ ] 또는 GitHub 저장소를 Public으로 설정하고 링크 준비
+- [x] 소스코드 정리: `node_modules`·`.git`·`dist` 제외 ZIP 생성 → `docs/submission/final/evidence/source-code_learnprint.zip` (3.6M)
+- [x] GitHub 저장소 Public + 릴리즈 `v1.0.0` (소스 ZIP·시연영상 자산 첨부)
 
 ### Phase 5. 시연 자료 제작
 
-- [ ] 실행 화면 캡처: 브라우저에서 `npm run dev` 실행 후 주요 화면 촬영
-  - 화면 1: 학습 경험 입력 폼
-  - 화면 2: 학습 경험 목록
-  - 화면 3: 이력서 생성 결과 (역량별 그룹화)
-  - 화면 4: Markdown/JSON 내보내기 또는 인쇄 화면
-- [ ] 시연 영상 녹화 (3분 이내)
-  - 0:00~0:30: 프로젝트 소개
-  - 0:30~1:30: 학습 경험 입력 및 목록 확인
-  - 1:30~2:30: 이력서 생성 및 역량 분석 결과 확인
-  - 2:30~3:00: 내보내기/인쇄 및 마무리
+- [x] 실행 화면 캡처 완료 (`final/evidence/screenshots.zip`, 7장: 메인·이력서·인쇄·입력·자격증·라이브·AI에이전트)
+- [x] 시연 영상 녹화 완료 (`final/evidence/demo-video.mp4`, 1280×720 ~31초 — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 흐름)
 
 ### Phase 6. 빌드·테스트 검증
 
@@ -141,8 +129,8 @@
 
 ### 앱 품질
 
-- [ ] `npm test` 실행 시 테스트 전체 통과 (현행 HEAD 115개)
-- [ ] `npm run build` 실행 시 오류 없이 `dist/` 생성
+- [x] `npm test` 실행 시 테스트 전체 통과 (현행 HEAD 115개)
+- [x] `npm run build` 실행 시 오류 없이 `dist/` 생성
 - [ ] `npm run dev` 실행 시 브라우저에서 정상 동작
 - [ ] 학습 경험 추가 → 목록 확인 → 이력서 생성 → 내보내기 흐름이 오류 없이 작동
 
