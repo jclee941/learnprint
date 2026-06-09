@@ -12,7 +12,7 @@
 | `appendix3_ai-evidence.docx` | AI 활용 증빙자료 | 선택(가산점) |
 | `evidence/source-code_learnprint.zip` | 전체 소스코드 | 증빙 |
 | `evidence/screenshots.zip` | 실행 화면 7장 | 증빙 |
-| `evidence/build-test-log.txt` | 테스트 50개 통과·빌드 성공 로그 | 증빙 |
+| `evidence/build-test-log.txt` | 현행 HEAD 115개 통과(동결 스냅샷 50개 포함)·빌드 성공 로그 | 증빙 |
 | `evidence/resume-export-sample.md / .json` | 6과목 역량 분류 결과물 | 증빙 |
 | 라이브 데모 | https://learnprint.jclee.me | 증빙(링크) |
 
