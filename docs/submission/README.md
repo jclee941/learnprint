@@ -6,9 +6,9 @@
 
 **라이브 배포(공개 DNS)**: https://learnprint.jclee.me — Cloudflare Tunnel(named)로 노출된 실제 구동 주소.
 
-> **제출 스냅샷 고정(frozen) 안내**: 본 `docs/submission/` 자료 일체는 공모전에 실제 제출·검증된 커밋 `b0d438b` 시점의 스냅샷입니다(테스트 50개 기준). 이후 커밋은 제출 이후의 코드 품질 개선(저장소 예외 처리, 정적 경로 강화, 요청 검증, 접근성, SSE/요청 취소 견고화 등) 작업이며, 제출 패키지에는 포함되지 않습니다. 따라서 본 폴더의 소스 ZIP·빌드/테스트 로그(50개)는 제출 시점 기준으로 의도적으로 고정되어 있습니다.
+> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (커밋 `54a0e9e`) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 115개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
 
-> **파일명 영문화(post-submission) 안내**: 제출 이후 저장소 정리 차원에서 본 폴더의 한글 파일·폴더명을 영문으로 변경했습니다(`별첨1_참가신청서`→`appendix1_application-form`, `제출본`→`final`, `증빙자료`→`evidence`, `학습법사례보고서`→`case-report`, `소스코드_learnprint`→`source-code_learnprint`, `이력서내보내기샘플`→`resume-export-sample`, `빌드테스트로그`→`build-test-log`, `실행화면캡처`→`screenshots` 등). **파일 내용·바이트는 그대로이며 이름만 변경**되었습니다. 실제 공모전 이메일 제출 시 파일명은 요강 규칙(`2026AI학습법공모전_대표자명_학번_제목`)에 맞춰 다시 지정하면 됩니다.
+> **파일명 영문화 안내**: 저장소 정리 차원에서 한글 파일·폴더명을 영문으로 변경했습니다(`별첨1_참가신청서`→`appendix1_application-form`, `제출본`→`final`, `증빙자료`→`evidence`, `학습법사례보고서`→`case-report` 등). 실제 공모전 이메일 제출 시 파일명은 요강 규칙(`2026AI학습법공모전_대표자명_학번_제목`)에 맞춰 지정하면 됩니다. (신청자 정보·서명은 final docx에 기입 완료)
 
 ## 1. 실행 화면 캡처 (screenshots/)
 

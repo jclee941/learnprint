@@ -52,17 +52,17 @@
 |------|--------|------|------|------|
 | 1 | **별첨 1. 참가신청서** | docx | ✅ 완료 | `docs/submission/final/appendix1_application-form.docx` — 이재철/2024112536/연락처/서명 기입됨 |
 | 2 | **별첨 2. 개인정보 수집·이용 동의서** | docx | ✅ 완료 | `docs/submission/final/appendix2_consent-form.docx` — 제출일·서명 기입됨 |
-| 3 | **별첨 3. AI 활용 증빙자료** | docx | 초안 완료 | `docs/ai-evidence.md` 참고하여 docx 양식에 옮김 |
-| 4 | **사례보고서 본문** | docx/PDF | 초안 완료 | `docs/case-report.md` 참고하여 docx/PDF 변환 |
+| 3 | **별첨 3. AI 활용 증빙자료** | docx | ✅ 완료 | `docs/submission/final/appendix3_ai-evidence.docx` |
+| 4 | **사례보고서 본문** | docx/PDF | ✅ 완료 | `docs/submission/final/case-report.pdf` / `.docx` |
 
 ### 결과물 자료
 
 | 번호 | 자료명 | 형식 | 상태 | 비고 |
 |------|--------|------|------|------|
-| 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/learnprint-source.zip` 및 GitHub 저장소 |
-| 6 | **실행 화면 캡처** | PNG | ✅ 완료 | `docs/submission/screenshots/` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
-| 7 | **시연 영상** | MP4 (3분 이내 권장) | 미녹화 | 전체 사용 흐름을 녹화 (스크린샷으로 정적 화면은 확보)
-| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/build-test-log.txt` (동결 스냅샷 50개 통과 / 현행 HEAD 115개 통과, 빌드 OK) |
+| 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/final/evidence/source-code_learnprint.zip` 및 GitHub 저장소 |
+| 6 | **실행 화면 측면** | PNG | ✅ 완료 | `docs/submission/final/evidence/screenshots.zip` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
+| 7 | **시연 영상** | MP4 (3분 이내 권장) | ✅ 완료 | `docs/submission/final/evidence/demo-video.mp4` (1280×720, ~31초) — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 전체 흐름 |
+| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/final/evidence/build-test-log.txt` (동결 스냅샷 50개 / 현행 HEAD 115개 통과, 빌드 OK) |
 
 ### 가산점·증빙 자료 (권장)
 
@@ -83,14 +83,14 @@
 
 ### Phase 2. 사례보고서 작성 및 편집
 
-- [ ] `docs/case-report.md` 내용을 docx 또는 워드프로세서로 옮김
-- [ ] 서식 통일 (글꼴, 크기, 여백, 표)
-- [ ] 맞춤법 검사
-- [ ] 1.5~3페이지 분량 확인 (공모전 요강 확인)
+- [x] `docs/case-report.md` 내용을 docx/PDF로 변환 (`docs/submission/final/case-report.docx` / `.pdf`)
+- [x] 서식 통일 (글꼴, 크기, 여백, 표)
+- [x] 맞춤법 검사
+- [x] 분량 확인 (심사용 요약본 `docs/case-report-summary.md` 병행)
 
 ### Phase 3. AI 활용 증빙자료 작성
 
-- [ ] `docs/ai-evidence.md` 초안을 별첨 3 공식 양식(docx)에 옮김
+- [x] `docs/ai-evidence.md` 초안을 별첨 3 공식 양식(docx)으로 완성 (`docs/submission/final/appendix3_ai-evidence.docx`)
 - [ ] 사용한 AI 도구명 정확히 기입
 - [ ] 대표 프롬프트 2~3개 선정 및 정리
 - [ ] 확인사항 전체 체크
@@ -119,14 +119,14 @@
 
 ### Phase 6. 빌드·테스트 검증
 
-- [ ] 터미널에서 다음 명령 실행 및 결과 캡처:
+- [x] 터미널에서 다음 명령 실행 및 결과 측정 (현행 HEAD 115개 통과):
   ```bash
   npm install
   npm test
   npm run build
   ```
-- [ ] 테스트 전체 통과 확인 (현행 HEAD 115개)
-- [ ] `dist/` 폴더에 빌드 산출물 생성 확인
+- [x] 테스트 전체 통과 확인 (현행 HEAD 115개)
+- [x] `dist/` 폴더에 빌드 산출물 생성 확인
 
 ### Phase 7. 최종 검토 및 제출
 
