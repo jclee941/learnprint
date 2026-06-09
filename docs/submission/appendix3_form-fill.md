@@ -23,4 +23,4 @@
 | 6 | sample-resume-export.md / sample-resume-export.json | 최종 산출물 | 6개 과목 역량 분류 이력서 내보내기 |
 | 7 | build-test-log.txt | 빌드/테스트 로그 | 테스트 통과·타입체크·빌드 성공 로그 |
 | 8 | docs/case-report.md | 사례보고서 | 설명·진단·증거 3-루프 학습법 본문 |
-| 9 | 04_demo_video.mp4 | 시연 영상 | 바이브코딩/Agent 실행 화면 (※ 미녹화 — 제출 전 본인 녹화 필요) |
+| 9 | demo-video.mp4 | 시연 영상 | 바이브코딩/Agent 실행 화면 (✅ 녹화 완료, 1280×720 ~31초 — `docs/submission/final/evidence/demo-video.mp4`) |
