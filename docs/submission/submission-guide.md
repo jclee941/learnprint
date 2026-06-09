@@ -23,7 +23,7 @@
 | 증빙 | 실행 화면 캡처 | `docs/submission/final/evidence/screenshots.zip` | 7장 |
 | 증빙 | 빌드/테스트 로그 | `docs/submission/final/evidence/build-test-log.txt` | 현행 HEAD 115개 통과 |
 | 증빙 | 이력서 내보내기 샘플 | `docs/submission/final/evidence/resume-export-sample.md / .json` | 6과목 역량 분류 결과 |
-| 증빙 | 시연 영상 | `docs/submission/final/evidence/demo-video.mp4` | ✅ 1280×720 ~31초 |
+| 증빙 | 시연 영상 | `docs/submission/final/evidence/demo-video.mp4` | ✅ 1280×720 ~55초 |
 | 데모 | 라이브 배포 | https://learnprint.jclee.me | 실제 구동 URL (HTTP 200) |
 
 ## 3. 작성 상태 (모두 완료)
