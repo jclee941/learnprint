@@ -50,19 +50,19 @@
 
 | 번호 | 서류명 | 형식 | 상태 | 비고 |
 |------|--------|------|------|------|
-| 1 | **별첨 1. 참가신청서** | docx | ✅ 완료 | `docs/submission/final/appendix1_application-form.docx` — 이재철/2024112536/연락처/서명 기입됨 |
-| 2 | **별첨 2. 개인정보 수집·이용 동의서** | docx | ✅ 완료 | `docs/submission/final/appendix2_consent-form.docx` — 제출일·서명 기입됨 |
-| 3 | **별첨 3. AI 활용 증빙자료** | docx | ✅ 완료 | `docs/submission/final/appendix3_ai-evidence.docx` |
-| 4 | **사례보고서 본문** | docx/PDF | ✅ 완료 | `docs/submission/final/case-report.pdf` / `.docx` |
+| 1 | **별첨 1. 참가신청서** | docx | ✅ 완료 | `docs/submission/final/01_참가신청서_AI증빙_이재철.docx` — 이재철/2024112536/연락처/서명 기입됨 |
+| 2 | **별첨 2. 개인정보 수집·이용 동의서** | docx | ✅ 완료 | `docs/submission/final/01_참가신청서_AI증빙_이재철.docx (통합본 동의 섹션)` — 제출일·서명 기입됨 |
+| 3 | **별첨 3. AI 활용 증빙자료** | docx | ✅ 완료 | `docs/submission/final/01_참가신청서_AI증빙_이재철.docx (통합본 AI증빙 섹션)` |
+| 4 | **사례보고서 본문** | docx/PDF | ✅ 완료 | `docs/submission/final/02_사례보고서_이재철.pdf` / `.docx` |
 
 ### 결과물 자료
 
 | 번호 | 자료명 | 형식 | 상태 | 비고 |
 |------|--------|------|------|------|
-| 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/final/evidence/source-code_learnprint.zip` 및 GitHub 저장소 |
-| 6 | **실행 화면 측면** | PNG | ✅ 완료 | `docs/submission/final/evidence/screenshots.zip` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
-| 7 | **시연 영상** | MP4 (3분 이내 권장) | ✅ 완료 | `docs/submission/final/evidence/demo-video.mp4` (1280×720, ~55초) — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답(역량분석·면접질문) |
-| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/final/evidence/build-test-log.txt` (동결 스냅샷 50개 / 현행 HEAD 115개 통과, 빌드 OK) |
+| 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/final/evidence/03_소스코드.zip` 및 GitHub 저장소 |
+| 6 | **실행 화면 측면** | PNG | ✅ 완료 | `docs/submission/final/evidence/04_실행화면캡처.zip` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
+| 7 | **시연 영상** | MP4 (3분 이내 권장) | ✅ 완료 | `docs/submission/final/evidence/05_시연영상.mp4` (1280×720, ~55초) — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답(역량분석·면접질문) |
+| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/final/evidence/06_빌드테스트로그.txt` (동결 스냅샷 50개 / 현행 HEAD 115개 통과, 빌드 OK) |
 
 ### 가산점·증빙 자료 (권장)
 
@@ -83,27 +83,27 @@
 
 ### Phase 2. 사례보고서 작성 및 편집
 
-- [x] `docs/case-report.md` 내용을 docx/PDF로 변환 (`docs/submission/final/case-report.docx` / `.pdf`)
+- [x] `docs/case-report.md` 내용을 docx/PDF로 변환 (`docs/submission/final/02_사례보고서_이재철.docx` / `.pdf`)
 - [x] 서식 통일 (글꼴, 크기, 여백, 표)
 - [x] 맞춤법 검사
 - [x] 분량 확인 (심사용 요약본 `docs/case-report-summary.md` 병행)
 
 ### Phase 3. AI 활용 증빙자료 작성
 
-- [x] `docs/ai-evidence.md` 초안을 별첨 3 공식 양식(docx)으로 완성 (`docs/submission/final/appendix3_ai-evidence.docx`)
+- [x] `docs/ai-evidence.md` 초안을 별첨 3 공식 양식(docx)으로 완성 (`docs/submission/final/01_참가신청서_AI증빙_이재철.docx (통합본 AI증빙 섹션)`)
 - [x] 사용한 AI 도구명 정확히 기입 (OpenCode AI 코딩 어시스턴트 / LLM 학습 에이전트)
 - [x] 대표 프롬프트 2~3개 선정 및 정리 (`docs/ai-evidence.md` §3~§4)
-- [x] 확인사항 전체 체크 (`appendix3_ai-evidence.docx` §9)
+- [x] 확인사항 전체 체크 (`01_참가신청서_AI증빙_이재철.docx`의 AI증빙 확인사항 섹션)
 
 ### Phase 4. 결과물 패키징
 
-- [x] 소스코드 정리: `node_modules`·`.git`·`dist` 제외 ZIP 생성 → `docs/submission/final/evidence/source-code_learnprint.zip` (3.6M)
+- [x] 소스코드 정리: `node_modules`·`.git`·`dist` 제외 ZIP 생성 → `docs/submission/final/evidence/03_소스코드.zip` (3.6M)
 - [x] GitHub 저장소 Public + 릴리즈 `v1.0.0` (소스 ZIP·시연영상 자산 첨부)
 
 ### Phase 5. 시연 자료 제작
 
-- [x] 실행 화면 캡처 완료 (`final/evidence/screenshots.zip`, 7장: 메인·이력서·인쇄·입력·자격증·라이브·AI에이전트)
-- [x] 시연 영상 녹화 완료 (`final/evidence/demo-video.mp4`, 1280×720 ~55초 — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답 흐름)
+- [x] 실행 화면 캡처 완료 (`final/evidence/04_실행화면캡처.zip`, 7장: 메인·이력서·인쇄·입력·자격증·라이브·AI에이전트)
+- [x] 시연 영상 녹화 완료 (`final/evidence/05_시연영상.mp4`, 1280×720 ~55초 — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답 흐름)
 
 ### Phase 6. 빌드·테스트 검증
 
@@ -160,18 +160,15 @@
 
 ```
 submission_2026HYCU_AI-learning_<name>/
-├── 1_application-form_<name>.docx
-├── 2_consent-form_<name>.docx
-├── 3_ai-evidence_<name>.docx
-├── 4_case-report_<name>.pdf
-├── 5_source-code_learnprint.zip
-├── 6_screenshots/
-│   ├── 01_input-form.png
-│   ├── 02_list.png
-│   ├── 03_resume-generated.png
-│   └── 04_export.png
-├── 7_demo-video_<name>.mp4
-└── 8_build-test-log.txt
+├── 00_제출안내.md
+├── 01_참가신청서_AI증빙_이재철.docx
+├── 02_사례보고서_이재철.pdf
+└── evidence/
+    ├── 03_소스코드.zip
+    ├── 04_실행화면캡처.zip
+    ├── 05_시연영상.mp4
+    ├── 06_빌드테스트로그.txt
+    └── 07_이력서샘플.md / .json
 ```
 
 > 메일 제목·파일명은 규칙 `2026AI학습법공모전_대표자명_학번_제목`을 따르며, parkjw@hycu.ac.kr 로 제출합니다.

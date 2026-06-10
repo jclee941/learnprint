@@ -121,7 +121,7 @@ AI는 `LearningAnalyzer` 인터페이스와 `analyzeLearningItems` 함수를 제
 | 1 | learnprint-source.zip | 소스코드 | 전체 소스 (node_modules·.git·dist 제외) |
 | 2 | screenshots/01~07_*.png | 실행 화면 캡처 | 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 |
 | 3 | https://learnprint.jclee.me | 라이브 배포 | 실제 구동 URL |
-| 4 | build-test-log.txt | 빌드/테스트 로그 | 50개 테스트 통과, 빌드 성공 |
+| 4 | 06_빌드테스트로그.txt | 빌드/테스트 로그 | 50개 테스트 통과, 빌드 성공 |
 | 5 | sample-resume-export.md / .json | 산출물 | 6개 과목 역량 분류 이력서 내보내기 |
 | 6 | (수기) 학습법 사례보고서 | 본문 | docs/case-report.md |
 
