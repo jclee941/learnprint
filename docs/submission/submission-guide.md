@@ -15,15 +15,13 @@
 ## 2. 제출 파일 목록
 | 구분 | 파일 | 최종 제출본 위치 | 비고 |
 |------|------|------------|------|
-| 수기(본문) | 학습법 사례보고서 | `docs/submission/final/case-report.pdf` / `.docx` | ✅ 완성 (변환 완료) |
-| 별첨1 | 참가신청서 | `docs/submission/final/appendix1_application-form.docx` | ✅ 이재철/2024112536/서명 기입됨 |
-| 별첨2 | 동의서 | `docs/submission/final/appendix2_consent-form.docx` | ✅ 제출일·서명 기입됨 |
-| 별첨3 | AI 활용 증빙자료 | `docs/submission/final/appendix3_ai-evidence.docx` | ✅ 완성 (선택/가산점) |
-| 증빙 | 소스코드 ZIP | `docs/submission/final/evidence/source-code_learnprint.zip` | node_modules·.git·dist 제외 |
-| 증빙 | 실행 화면 캡처 | `docs/submission/final/evidence/screenshots.zip` | 7장 |
-| 증빙 | 빌드/테스트 로그 | `docs/submission/final/evidence/build-test-log.txt` | 현행 HEAD 115개 통과 |
-| 증빙 | 이력서 내보내기 샘플 | `docs/submission/final/evidence/resume-export-sample.md / .json` | 6과목 역량 분류 결과 |
-| 증빙 | 시연 영상 | `docs/submission/final/evidence/demo-video.mp4` | ✅ 1280×720 ~55초 |
+| 참가신청서·동의·AI증빙 | 공식 양식 통합본 | `final/01_참가신청서_AI증빙_이재철.docx` | ✅ 이재철/2024112536/체크·날림체서명 기입됨 |
+| 수기(본문) | 학습법 사례보고서 | `final/02_사례보고서_이재철.pdf` / `.docx` | ✅ 완성 |
+| 증빙 | 소스코드 ZIP | `final/evidence/03_소스코드.zip` | node_modules·.git·dist 제외 |
+| 증빙 | 실행 화면 캡처 | `final/evidence/04_실행화면캡처.zip` | 7장 |
+| 증빙 | 시연 영상 | `final/evidence/05_시연영상.mp4` | ✅ 1280×720 ~55초 |
+| 증빙 | 빌드/테스트 로그 | `final/evidence/06_빌드테스트로그.txt` | 현행 HEAD 115개 통과 |
+| 증빙 | 이력서 내보내기 샘플 | `final/evidence/07_이력서샘플.md / .json` | 6과목 역량 분류 결과 |
 | 데모 | 라이브 배포 | https://learnprint.jclee.me | 실제 구동 URL (HTTP 200) |
 
 ## 3. 작성 상태 (모두 완료)
@@ -33,9 +31,9 @@
 
 ## 6. 최종 제출 전 검증 체크리스트
 - [x] 별첨1/2/3의 「본인 작성」 항목 기입·서명 완료 (final docx 기준, 제출 전 육안 확인만 필요)
-- [x] 수기(case-report) docx/PDF 변환 완료 (`final/case-report.pdf` / `.docx`) — 제출 전 맞춤법 육안 확인만 권장
+- [x] 수기(사례보고서) docx/PDF 변환 완료 (`final/02_사례보고서_이재철.pdf` / `.docx`) — 제출 전 맞춤법 육안 확인만 권장
 - [ ] 메일 제목·파일명이 `2026AI학습법공모전_대표자명_학번_제목` 규칙 준수
 - [ ] 첨부에 개인정보·계정정보·비밀번호·API Key 미포함 확인
 - [ ] AI 증빙 50MB 이내 (초과 시 링크 대체)
-- [x] `npm test`(현행 HEAD 115개 통과)·`npm run build` 로그 첨부 (`final/evidence/build-test-log.txt`)
+- [x] `npm test`(현행 HEAD 115개 통과)·`npm run build` 로그 첨부 (`final/evidence/06_빌드테스트로그.txt`)
 - [ ] 마감(2026.6.14 24:00) 이전 발송
