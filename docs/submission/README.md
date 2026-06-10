@@ -33,12 +33,12 @@
 
 | 파일 | 설명 |
 |------|------|
-| `build-test-log.txt` | `npm test`(현행 HEAD 115개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
+| `final/evidence/06_빌드테스트로그.txt` | `npm test`(현행 HEAD 115개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
 
 ## 4. 시연 영상 ✅ 완료
 
 전체 사용 흐름을 자동 녹화한 시연 영상입니다 (1280×720, ~55초, H.264):
-- `final/evidence/demo-video.mp4` (및 복본 `04_demo_video.mp4`)
+- `final/evidence/05_시연영상.mp4`
 - 흐름: 메인·시드 6과목 → 학습 경험 입력(자격증) → 이력서 생성 → 역량별 그룹 → 내보내기 → **AI 에이전트 실시간 응답**(역량 분석·자기소개 생성, 예상 면접질문)
 
 ## 재현 방법
