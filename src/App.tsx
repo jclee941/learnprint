@@ -65,18 +65,18 @@ export default function App() {
       <header className="app-header">
         <p className="eyebrow">HYCU Learning Résumé</p>
         <h1>HYCU 학습 이력서</h1>
-        <p className="app-subtitle">한 페이지에서 입력부터 제출물 생성까지 끝내기</p>
+        <p className="app-subtitle">한 페이지에서 입력부터 이력서 생성까지 끝내기</p>
       </header>
 
       <main className="app-main">
         <section className="analysis-workspace" aria-label="학습 경험 입력과 분석">
-          <section className="submission-flow panel-card" aria-label="제출물 제작 흐름">
+          <section className="submission-flow panel-card" aria-label="이력서 만들기 흐름">
             <div>
-              <p className="eyebrow">Submission Builder</p>
-              <h2>제출물 제작 흐름</h2>
+              <p className="eyebrow">Resume Builder</p>
+              <h2>이력서 만들기 흐름</h2>
               <p>학습 경험을 정리하고 이력서를 생성한 뒤, Markdown·JSON·증거 원장·인쇄본까지 한 화면에서 준비합니다.</p>
             </div>
-            <div className="submission-steps" aria-label="제출물 제작 단계">
+            <div className="submission-steps" aria-label="이력서 만들기 단계">
               <div className={items.length > 0 ? "submission-step is-complete" : "submission-step"}>
                 <span>1</span>
                 <strong>등록된 학습 경험 {items.length}개</strong>
@@ -84,8 +84,8 @@ export default function App() {
               </div>
               <div className={isSubmissionReady ? "submission-step is-complete" : "submission-step"}>
                 <span>2</span>
-                <strong>{isSubmissionReady ? "제출물 준비 완료" : "출력 전"}</strong>
-                <small>{isSubmissionReady ? "아래 패키지에서 필요한 형식으로 제출물을 저장하세요." : "이력서 생성을 눌러 제출용 문서를 만듭니다."}</small>
+                <strong>{isSubmissionReady ? "이력서 준비 완료" : "출력 전"}</strong>
+                <small>{isSubmissionReady ? "아래에서 원하는 형식으로 이력서를 저장하세요." : "이력서 생성을 눌러 이력서 문서를 만듭니다."}</small>
               </div>
             </div>
           </section>
@@ -115,10 +115,10 @@ export default function App() {
         {isSubmissionReady && resume && (
           <section className="resume-output">
             <div className="submission-package no-print">
-              <p className="eyebrow">Ready to Submit</p>
-              <h2>최종 제출물 패키지</h2>
+              <p className="eyebrow">Ready to Export</p>
+              <h2>완성된 학습 이력서</h2>
               <p className="coverage-summary">역량 {coverage}/6 커버리지</p>
-              <p>이력서 본문을 확인한 뒤 제출 형식에 맞춰 Markdown, JSON, 증거 원장 또는 인쇄본으로 내보내세요.</p>
+              <p>이력서 본문을 확인한 뒤 원하는 형식으로 Markdown, JSON, 증거 원장 또는 인쇄본으로 내보내세요.</p>
             </div>
             <ExportControls resume={resume} />
             <ResumeView resume={resume} />
