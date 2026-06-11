@@ -47,6 +47,17 @@ describe("resume exporters", () => {
     expect(markdown).toContain("## 데이터 분석 역량");
   });
 
+  it("resume:markdown-includes-final-output-package-summary", () => {
+    const markdown = resumeToMarkdown(fixtureResume);
+
+    expect(markdown).toContain("## 최종 산출물 패키지");
+    expect(markdown).toContain("- 학습 경험: 1개");
+    expect(markdown).toContain("- 역량 커버리지: 1개");
+    expect(markdown).toContain("- 증거 문장: 1개");
+    expect(markdown).toContain("- 증거 링크: 1개");
+    expect(markdown).toContain("- 내보내기 상태: Markdown·JSON·증거 원장·인쇄본 준비 완료");
+  });
+
   it("resume:json-roundtrips", () => {
     expect(JSON.parse(resumeToJson(fixtureResume))).toEqual(fixtureResume);
   });
@@ -60,6 +71,16 @@ describe("resume exporters", () => {
     expect(ledger).toContain("데이터 분석 역량");
     expect(ledger).toContain("프로젝트, 2026.01 - 2026.03");
     expect(ledger).toContain("Python으로 데이터를 분석");
+  });
+
+  it("resume:evidence-ledger-includes-final-output-package-summary", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("## 최종 산출물 패키지");
+    expect(ledger).toContain("- 학습 경험: 1개");
+    expect(ledger).toContain("- 역량 커버리지: 1개");
+    expect(ledger).toContain("- 증거 문장: 1개");
+    expect(ledger).toContain("- 증거 링크: 1개");
   });
 
   it("resume:evidence-ledger-includes-row-and-global-limitation", () => {

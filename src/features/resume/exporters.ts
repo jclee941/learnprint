@@ -1,4 +1,6 @@
 import type { LearningResume } from "../../types/resume";
+import { createFinalOutputSummary } from "./finalOutputSummary";
+
 function formatGeneratedDate(generatedAt: number): string {
   return Number.isFinite(generatedAt)
     ? new Date(generatedAt).toLocaleDateString("ko-KR")
@@ -7,7 +9,19 @@ function formatGeneratedDate(generatedAt: number): string {
 
 export function resumeToMarkdown(resume: LearningResume): string {
   const generatedDate = formatGeneratedDate(resume.generatedAt);
+  const finalOutputSummary = createFinalOutputSummary(resume);
   const lines = [`# ${resume.title}`, "", resume.summary, "", `생성일: ${generatedDate}`];
+
+  lines.push(
+    "",
+    "## 최종 산출물 패키지",
+    "",
+    `- 학습 경험: ${finalOutputSummary.itemCount}개`,
+    `- 역량 커버리지: ${finalOutputSummary.competencyCount}개`,
+    `- 증거 문장: ${finalOutputSummary.evidenceCount}개`,
+    `- 증거 링크: ${finalOutputSummary.linkedEvidenceCount}개`,
+    `- 내보내기 상태: ${finalOutputSummary.exportStatus}`,
+  );
 
   for (const competency of resume.competencies) {
     lines.push("", `## ${competency.label}`, "", competency.summary, "");
@@ -34,12 +48,21 @@ function escapeTableCell(text: string): string {
 
 export function resumeToEvidenceLedgerMarkdown(resume: LearningResume): string {
   const generatedDate = formatGeneratedDate(resume.generatedAt);
+  const finalOutputSummary = createFinalOutputSummary(resume);
   const lines = [
     "# \uC5ED\uB7C9 \uC99D\uAC70 \uC6D0\uC7A5",
     "",
     "\uD769\uC5B4\uC9C4 \uD559\uC2B5 \uACBD\uD5D8\uC744 \uC5ED\uB7C9\uBCC4 \uC99D\uAC70\uB85C \uC7AC\uAD6C\uC131\uD55C \uC6D0\uC7A5\uC785\uB2C8\uB2E4. \uAC01 \uD589\uC740 \uD558\uB098\uC758 \uD559\uC2B5 \uD754\uC801\uC744 \uADF8 \uC99D\uAC70\uAC00 \uB0A8\uC740 \uC778\uACF5\uBB3C\u00B7\uCD9C\uCC98\uC640 \uD568\uAED8 \uD558\uB098\uC758 \uC5ED\uB7C9\uC5D0 \uC5F0\uACB0\uD569\uB2C8\uB2E4.",
     "",
     `\uC0DD\uC131\uC77C: ${generatedDate}`,
+    "",
+    "## 최종 산출물 패키지",
+    "",
+    `- 학습 경험: ${finalOutputSummary.itemCount}개`,
+    `- 역량 커버리지: ${finalOutputSummary.competencyCount}개`,
+    `- 증거 문장: ${finalOutputSummary.evidenceCount}개`,
+    `- 증거 링크: ${finalOutputSummary.linkedEvidenceCount}개`,
+    `- 내보내기 상태: ${finalOutputSummary.exportStatus}`,
     "",
     "| \uD559\uC2B5 \uACBD\uD5D8 | \uC720\uD615\u00B7\uAE30\uAC04 | \uC778\uACF5\uBB3C\u00B7\uCD9C\uCC98 | \uC5ED\uB7C9 | \uC99D\uAC70 \uBB38\uC7A5 | \uD55C\uACC4 |",
     "| --- | --- | --- | --- | --- | --- |",
