@@ -6,7 +6,7 @@
 
 **라이브 배포(공개 DNS)**: https://learnprint.jclee.me — Cloudflare Tunnel(named)로 노출된 실제 구동 주소.
 
-> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (master 최신 커밋) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 115개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
+> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (master 최신 커밋) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 118개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
 
 > **파일명 넘버링 안내**: `final/` 제출본은 제출 순서대로 넘버링되어 있습니다 — `00_제출안내`, `01_참가신청서_AI증빙_이재철`, `02_사례보고서_이재철`, `evidence/03_소스코드`~`07_이력서샘플`. 참가신청서·동의서·AI증빙은 공식 양식 1개 파일로 통합되어 있으며 신청자 정보·체크·날림체 서명이 기입되어 있습니다. 이메일 제출 시 파일명은 요강 규칙(`2026AI학습법공모전_대표자명_학번_제목`)에 맞춰 지정하면 됩니다.
 
@@ -33,7 +33,7 @@
 
 | 파일 | 설명 |
 |------|------|
-| `final/evidence/06_빌드테스트로그.txt` | `npm test`(현행 HEAD 115개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
+| `final/evidence/06_빌드테스트로그.txt` | `npm test`(현행 HEAD 118개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
 
 ## 4. 시연 영상 ✅ 완료
 
