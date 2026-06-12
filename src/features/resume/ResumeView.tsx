@@ -30,6 +30,19 @@ export function ResumeView({ resume }: ResumeViewProps) {
         </ul>
       </section>
 
+      <section className="resume-competency contest-readiness" aria-label={finalOutputSummary.contestReadiness.heading}>
+        <h3>{finalOutputSummary.contestReadiness.heading}</h3>
+        <ul className="contest-readiness-list">
+          {finalOutputSummary.contestReadiness.items.map((item) => (
+            <li className="contest-readiness-item" key={item.label}>
+              <strong>{item.label}</strong>
+              <span>{item.value}</span>
+              <p>{item.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="resume-competencies" aria-label="역량별 학습 증거">
         {resume.competencies.map((competency) => (
           <section className="resume-competency" key={competency.key}>

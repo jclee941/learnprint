@@ -52,6 +52,19 @@ describe("ResumeView", () => {
     expect(screen.getByText("Markdown·JSON·증거 원장·인쇄본 준비 완료")).toBeInTheDocument();
   });
 
+  it("resume-view:shows-contest-readiness-summary", () => {
+    render(<ResumeView resume={resume} />);
+
+    expect(screen.getByRole("region", { name: "공모전 심사 요약" })).toBeInTheDocument();
+    expect(screen.getByText("AI 활용성")).toBeInTheDocument();
+    expect(screen.getByText("증거성")).toBeInTheDocument();
+    expect(screen.getByText("재현성")).toBeInTheDocument();
+    expect(screen.getByText("개인정보 안전성")).toBeInTheDocument();
+    expect(screen.getByText("역량 커버리지")).toBeInTheDocument();
+    expect(screen.getByText(/제출 전 검토·삭제/)).toBeInTheDocument();
+    expect(screen.queryByText(/비밀값을 포함하지 않습니다/)).not.toBeInTheDocument();
+  });
+
   it("resume-view:invalid-generated-at-renders-dash", () => {
     render(<ResumeView resume={{ ...resume, generatedAt: NaN }} />);
 

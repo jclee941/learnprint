@@ -58,6 +58,19 @@ describe("resume exporters", () => {
     expect(markdown).toContain("- 내보내기 상태: Markdown·JSON·증거 원장·인쇄본 준비 완료");
   });
 
+  it("resume:markdown-includes-contest-readiness-summary", () => {
+    const markdown = resumeToMarkdown(fixtureResume);
+
+    expect(markdown).toContain("## 공모전 심사 요약");
+    expect(markdown).toContain("- **AI 활용성**:");
+    expect(markdown).toContain("- **증거성**:");
+    expect(markdown).toContain("- **재현성**:");
+    expect(markdown).toContain("- **개인정보 안전성**:");
+    expect(markdown).toContain("- **역량 커버리지**:");
+    expect(markdown).toContain("제출 전 검토·삭제");
+    expect(markdown).not.toContain("비밀값을 포함하지 않습니다");
+  });
+
   it("resume:json-roundtrips", () => {
     expect(JSON.parse(resumeToJson(fixtureResume))).toEqual(fixtureResume);
   });
@@ -81,6 +94,15 @@ describe("resume exporters", () => {
     expect(ledger).toContain("- 역량 커버리지: 1개");
     expect(ledger).toContain("- 증거 문장: 1개");
     expect(ledger).toContain("- 증거 링크: 1개");
+  });
+
+  it("resume:evidence-ledger-includes-contest-readiness-summary", () => {
+    const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
+
+    expect(ledger).toContain("## 공모전 심사 요약");
+    expect(ledger).toContain("| 평가 항목 | 현재 상태 | 심사 포인트 |");
+    expect(ledger).toContain("| AI 활용성 |");
+    expect(ledger).toContain("| 개인정보 안전성 |");
   });
 
   it("resume:evidence-ledger-includes-row-and-global-limitation", () => {

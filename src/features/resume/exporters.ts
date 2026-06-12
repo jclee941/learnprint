@@ -23,6 +23,12 @@ export function resumeToMarkdown(resume: LearningResume): string {
     `- 내보내기 상태: ${finalOutputSummary.exportStatus}`,
   );
 
+  lines.push("", `## ${finalOutputSummary.contestReadiness.heading}`, "");
+
+  for (const item of finalOutputSummary.contestReadiness.items) {
+    lines.push(`- **${item.label}**: ${item.value} — ${item.detail}`);
+  }
+
   for (const competency of resume.competencies) {
     lines.push("", `## ${competency.label}`, "", competency.summary, "");
 
@@ -64,9 +70,23 @@ export function resumeToEvidenceLedgerMarkdown(resume: LearningResume): string {
     `- 증거 링크: ${finalOutputSummary.linkedEvidenceCount}개`,
     `- 내보내기 상태: ${finalOutputSummary.exportStatus}`,
     "",
+    `## ${finalOutputSummary.contestReadiness.heading}`,
+    "",
+    "| 평가 항목 | 현재 상태 | 심사 포인트 |",
+    "| --- | --- | --- |",
+  ];
+
+  for (const item of finalOutputSummary.contestReadiness.items) {
+    lines.push(
+      `| ${escapeTableCell(item.label)} | ${escapeTableCell(item.value)} | ${escapeTableCell(item.detail)} |`,
+    );
+  }
+
+  lines.push(
+    "",
     "| \uD559\uC2B5 \uACBD\uD5D8 | \uC720\uD615\u00B7\uAE30\uAC04 | \uC778\uACF5\uBB3C\u00B7\uCD9C\uCC98 | \uC5ED\uB7C9 | \uC99D\uAC70 \uBB38\uC7A5 | \uD55C\uACC4 |",
     "| --- | --- | --- | --- | --- | --- |",
-  ];
+  );
 
   for (const competency of resume.competencies) {
     for (const evidence of competency.evidence) {
