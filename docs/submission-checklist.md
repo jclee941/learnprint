@@ -61,8 +61,8 @@
 |------|--------|------|------|------|
 | 5 | **소스코드** | ZIP | ✅ 완료 | `docs/submission/final/evidence/03_소스코드.zip` 및 GitHub 저장소 |
 | 6 | **실행 화면 측면** | PNG | ✅ 완료 | `docs/submission/final/evidence/04_실행화면캡처.zip` — 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 포함 7장 |
-| 7 | **시연 영상** | MP4 (3분 이내 권장) | ✅ 완료 | `docs/submission/final/evidence/05_시연영상.mp4` (1280×720, ~55초) — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답(역량분석·면접질문) |
-| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/final/evidence/06_빌드테스트로그.txt` (동결 스냅샷 50개 / 현행 HEAD 115개 통과, 빌드 OK) |
+| 7 | **시연 영상** | MP4 (3분 이내 권장) | ✅ 완료 | `docs/submission/final/evidence/05_시연영상.mp4` (1280×720, 30.4초) — 시드 확인→이력서 생성→입력→재생성→역량 분류→내보내기→AI 에이전트 질문 입력 화면 |
+| 8 | **빌드/테스트 통과 로그** | 텍스트 | ✅ 완료 | `docs/submission/final/evidence/06_빌드테스트로그.txt` (`npm run verify:readiness`로 생성하는 현행 HEAD canonical readiness 로그. 초기 동결 스냅샷의 50개 테스트 기록은 역사적 기록) |
 
 ### 가산점·증빙 자료 (권장)
 
@@ -103,17 +103,16 @@
 ### Phase 5. 시연 자료 제작
 
 - [x] 실행 화면 캡처 완료 (`final/evidence/04_실행화면캡처.zip`, 7장: 메인·이력서·인쇄·입력·자격증·라이브·AI에이전트)
-- [x] 시연 영상 녹화 완료 (`final/evidence/05_시연영상.mp4`, 1280×720 ~55초 — 입력→이력서 생성→역량 분류→내보내기→AI 에이전트 실시간 응답 흐름)
+- [x] 시연 영상 녹화 완료 (`final/evidence/05_시연영상.mp4`, 1280×720 30.4초 — 시드 확인→이력서 생성→입력→재생성→역량 분류→내보내기→AI 에이전트 질문 입력 화면)
 
 ### Phase 6. 빌드·테스트 검증
 
-- [x] 터미널에서 다음 명령 실행 및 결과 측정 (현행 HEAD 115개 통과):
+- [x] 터미널에서 다음 명령 실행 및 결과 측정 (현재 통과 수는 canonical readiness 로그 기준):
   ```bash
   npm install
-  npm test
-  npm run build
+  npm run verify:readiness
   ```
-- [x] 테스트 전체 통과 확인 (현행 HEAD 115개)
+- [x] 테스트·타입체크·빌드 전체 통과 확인 (`docs/submission/final/evidence/06_빌드테스트로그.txt`)
 - [x] `dist/` 폴더에 빌드 산출물 생성 확인
 
 ### Phase 7. 최종 검토 및 제출
@@ -129,7 +128,7 @@
 
 ### 앱 품질
 
-- [x] `npm test` 실행 시 테스트 전체 통과 (현행 HEAD 115개)
+- [x] `npm run verify:readiness` 실행 시 테스트·타입체크·빌드 전체 통과 (`docs/submission/final/evidence/06_빌드테스트로그.txt`)
 - [x] `npm run build` 실행 시 오류 없이 `dist/` 생성
 - [ ] `npm run dev` 실행 시 브라우저에서 정상 동작
 - [ ] 학습 경험 추가 → 목록 확인 → 이력서 생성 → 내보내기 흐름이 오류 없이 작동

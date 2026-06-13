@@ -6,7 +6,7 @@
 
 **라이브 배포(공개 DNS)**: https://learnprint.jclee.me — Cloudflare Tunnel(named)로 노출된 실제 구동 주소.
 
-> **제출 스냅샷 안내**: 최종 제출 패키지는 릴리즈 `v1.0.0` (master 최신 커밋) 기준입니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준이었고, 현행 HEAD는 118개 통과·빌드 OK로 개선되었습니다 (`docs/verification-log.txt`).
+> **제출 스냅샷 안내**: 릴리즈 `v1.0.0`은 제출 시점에 동결한 release/submission 스냅샷입니다. 이 표기는 현재 `master`의 최신 커밋이나 현재 dirty worktree 상태를 의미하지 않습니다. `docs/submission/final/`의 docx·PDF·증빙(evidence)이 실제 제출본입니다. 초기 제출 검증 스냅샷은 테스트 50개 기준의 역사적 기록입니다. 현재 HEAD의 테스트·타입체크·빌드 상태는 `npm run verify:readiness`가 생성하는 canonical 로그 `docs/submission/final/evidence/06_빌드테스트로그.txt`를 기준으로 확인합니다.
 
 > **파일명 넘버링 안내**: `final/` 제출본은 제출 순서대로 넘버링되어 있습니다 — `00_제출안내`, `01_참가신청서_AI증빙_이재철`, `02_사례보고서_이재철`, `evidence/03_소스코드`~`07_이력서샘플`. 참가신청서·동의서·AI증빙은 공식 양식 1개 파일로 통합되어 있으며 신청자 정보·체크·날림체 서명이 기입되어 있습니다. 이메일 제출 시 파일명은 요강 규칙(`2026AI학습법공모전_대표자명_학번_제목`)에 맞춰 지정하면 됩니다.
 
@@ -20,7 +20,7 @@
 | `04_input_form_demo.png` | 입력 시연 | 새 학습 경험(정보처리기사) 입력 폼 작성 화면 |
 | `05_resume_with_certificate.png` | 7건 이력서 | 자격증 항목 추가 후 재생성한 역량별 이력서 |
 | `06_live_deploy_learnprint_jclee_me.png` | 라이브 배포 | 공개 도메인 https://learnprint.jclee.me 에서 구동되는 실제 화면 |
-| `07_ai_agent_competency.png` | AI 에이전트(선택) | 선택 기능인 AI 학습 에이전트가 등록 이력을 컨텍스트로 역량을 분석·제안한 화면 |
+| `07_ai_agent_competency.png` | AI 에이전트(선택) | 선택 기능인 AI 학습 에이전트 패널에 학습 이력 기반 질문을 입력한 화면 |
 
 ## 2. 내보내기 산출물 (학습 데이터 기반)
 
@@ -33,13 +33,13 @@
 
 | 파일 | 설명 |
 |------|------|
-| `final/evidence/06_빌드테스트로그.txt` | `npm test`(현행 HEAD 118개 통과) · `npm run typecheck`(클린) · `npm run build`(dist 생성) 통과 로그 (동결 스냅샷은 50개 기준) |
+| `final/evidence/06_빌드테스트로그.txt` | `npm run verify:readiness`가 생성한 현행 HEAD canonical readiness 로그. `npm test` · `npm run typecheck` · `npm run build` 결과를 포함하며, 초기 동결 스냅샷의 50개 테스트 기록은 역사적 기록으로만 봅니다. |
 
 ## 4. 시연 영상 ✅ 완료
 
-전체 사용 흐름을 자동 녹화한 시연 영상입니다 (1280×720, ~55초, H.264):
+전체 사용 흐름을 자동 녹화한 시연 영상입니다 (1280×720, 30.4초, H.264):
 - `final/evidence/05_시연영상.mp4`
-- 흐름: 메인·시드 6과목 → 학습 경험 입력(자격증) → 이력서 생성 → 역량별 그룹 → 내보내기 → **AI 에이전트 실시간 응답**(역량 분석·자기소개 생성, 예상 면접질문)
+- 흐름: 메인·시드 6과목 → 이력서 생성 → 학습 경험 입력(자격증) → 재생성 → 역량별 그룹 → 내보내기 → AI 에이전트 질문 입력 화면
 
 ## 재현 방법
 

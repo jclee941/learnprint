@@ -19,8 +19,8 @@
 | 수기(본문) | 학습법 사례보고서 | `final/02_사례보고서_이재철.pdf` / `.docx` | ✅ 완성 |
 | 증빙 | 소스코드 ZIP | `final/evidence/03_소스코드.zip` | node_modules·.git·dist 제외 |
 | 증빙 | 실행 화면 캡처 | `final/evidence/04_실행화면캡처.zip` | 7장 |
-| 증빙 | 시연 영상 | `final/evidence/05_시연영상.mp4` | ✅ 1280×720 ~55초 |
-| 증빙 | 빌드/테스트 로그 | `final/evidence/06_빌드테스트로그.txt` | 현행 HEAD 118개 통과 |
+| 증빙 | 시연 영상 | `final/evidence/05_시연영상.mp4` | ✅ 1280×720 30.4초 |
+| 증빙 | 빌드/테스트 로그 | `final/evidence/06_빌드테스트로그.txt` | `npm run verify:readiness`로 생성한 현행 HEAD canonical readiness 로그 |
 | 증빙 | 이력서 내보내기 샘플 | `final/evidence/07_이력서샘플.md / .json` | 6과목 역량 분류 결과 |
 | 데모 | 라이브 배포 | https://learnprint.jclee.me | 실제 구동 URL (HTTP 200) |
 
@@ -35,5 +35,5 @@
 - [ ] 메일 제목·파일명이 `2026AI학습법공모전_대표자명_학번_제목` 규칙 준수
 - [ ] 첨부에 개인정보·계정정보·비밀번호·API Key 미포함 확인
 - [ ] AI 증빙 50MB 이내 (초과 시 링크 대체)
-- [x] `npm test`(현행 HEAD 118개 통과)·`npm run build` 로그 첨부 (`final/evidence/06_빌드테스트로그.txt`)
+- [x] `npm run verify:readiness` 로그 첨부 (`final/evidence/06_빌드테스트로그.txt`: `npm test`·`npm run typecheck`·`npm run build` 포함)
 - [ ] 마감(2026.6.14 24:00) 이전 발송

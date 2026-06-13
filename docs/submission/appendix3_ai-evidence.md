@@ -9,7 +9,7 @@
 | 항목 | 내용 |
 |------|------|
 | 사용한 AI 도구명 | AI 코딩 어시스턴트(바이브코딩 방식) |
-| 버전 또는 환경 | Codex/OpenAI 코딩 어시스턴트 세션, LLM 학습 에이전트(cliproxy), Node.js v22.22.0, React 19.2.7, Vite 6.4.3, TypeScript 5.9.3, 시연영상 MP4(H.264 1280×720 55.52초, FFmpeg 7.1.1 확인) |
+| 버전 또는 환경 | Codex/OpenAI 코딩 어시스턴트 세션, LLM 학습 에이전트(cliproxy), Node.js v22.22.0, React 19.2.7, Vite 6.4.3, TypeScript 5.9.3, 시연영상 MP4(H.264 1280×720 30.4초, FFmpeg 7.1.1 확인) |
 | 활용 목적 | 전공 과목 학습(개념 질문·퀴즈·회고 정리) + 학습도구(learnprint) 직접 제작 |
 | 활용 단계 | 기획 → 도메인 설계 → TDD 구현 → UI 구현 → 학습 데이터 구성 → 검증 |
 | 최종 산출물 | "HYCU 학습 이력서" 웹앱 (learnprint) + 과목별 AI 활용 학습 기록 |
@@ -121,7 +121,7 @@ AI는 `LearningAnalyzer` 인터페이스와 `analyzeLearningItems` 함수를 제
 | 1 | learnprint-source.zip | 소스코드 | 전체 소스 (node_modules·.git·dist 제외) |
 | 2 | screenshots/01~07_*.png | 실행 화면 캡처 | 메인·이력서·인쇄·입력·자격증·라이브배포·AI에이전트 |
 | 3 | https://learnprint.jclee.me | 라이브 배포 | 실제 구동 URL |
-| 4 | 06_빌드테스트로그.txt | 빌드/테스트 로그 | 118개 테스트 통과, 빌드 성공 |
+| 4 | 06_빌드테스트로그.txt | 빌드/테스트 로그 | 현재 `npm run verify:readiness` 기준 canonical readiness 로그입니다. 과거 50개/118개 테스트 기록은 역사적 스냅샷으로만 구분합니다. |
 | 5 | sample-resume-export.md / .json | 산출물 | 6개 과목 역량 분류 이력서 내보내기 |
 | 6 | (수기) 학습법 사례보고서 | 본문 | docs/case-report.md |
 
