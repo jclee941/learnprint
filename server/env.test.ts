@@ -14,13 +14,13 @@ describe("loadLlmConfig", () => {
     ).toEqual({ baseUrl: "http://x/v1", apiKey: "sk-test", model: "m" });
   });
 
-  it("env:defaults-model-to-gemini-3-flash", () => {
+  it("env:defaults-model-to-gemini-3-flash-agent", () => {
     expect(
       loadLlmConfig({
         LLM_BASE_URL: "http://x/v1",
         LLM_API_KEY: "sk-test",
       }).model,
-    ).toBe("gemini-3-flash");
+    ).toBe("gemini-3-flash-agent");
   });
 
   it("env:throws-when-missing-api-key", () => {

@@ -9,6 +9,6 @@ export function loadLlmConfig(
   return {
     baseUrl: env.LLM_BASE_URL ?? "",
     apiKey,
-    model: env.LLM_MODEL || "gemini-3-flash",
+    model: env.LLM_MODEL || "gemini-3-flash-agent",
   };
 }

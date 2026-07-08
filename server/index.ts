@@ -103,5 +103,5 @@ const server = createServer((req, res) => {
 
 const port = Number(process.env.PORT ?? 4173);
 server.listen(port, () => {
-  console.log(`learnprint BFF listening on http://localhost:${port} (LLM_MODEL=${process.env.LLM_MODEL ?? "gemini-3-flash"})`);
+  console.log(`learnprint BFF listening on http://localhost:${port} (LLM_MODEL=${process.env.LLM_MODEL ?? "gemini-3-flash-agent"})`);
 });
