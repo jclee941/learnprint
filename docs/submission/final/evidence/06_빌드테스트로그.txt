@@ -1,12 +1,12 @@
 # 최종 제출본 readiness 검증 로그
-생성(KST): 2026. 06. 13. 13:44:59
-생성(ISO): 2026-06-13T04:44:59.844Z
+생성(KST): 2026. 06. 30. 15:48:44
+생성(ISO): 2026-06-30T06:48:44.339Z
 
 ## 환경
 Node: v22.22.0
 npm: 10.9.4
-git commit: cd0528ab11e0063e227465d50e5a893a64eef9c0
-git commit short: cd0528a
+git commit: e3cd9fab1f847268b52575a802dd8801e37382b9
+git commit short: e3cd9fa
 
 ## git status --short (before)
 M AGENTS.md
@@ -16,27 +16,9 @@ M AGENTS.md
  M docs/case-report.md
  M docs/code-quality-checklist.md
  M docs/score-estimate-review.md
- M docs/submission-checklist.md
- M docs/submission/README.md
- M docs/submission/appendix3_ai-evidence.md
- M docs/submission/appendix3_form-fill.md
  M docs/submission/build-test-log.txt
- M "docs/submission/final/00_\354\240\234\354\266\234\354\225\210\353\202\264.md"
- M "docs/submission/final/evidence/04_\354\213\244\355\226\211\355\231\224\353\251\264\354\272\241\354\262\230.zip"
- M "docs/submission/final/evidence/05_\354\213\234\354\227\260\354\230\201\354\203\201.mp4"
- M "docs/submission/final/evidence/06_\353\271\214\353\223\234\355\205\214\354\212\244\355\212\270\353\241\234\352\267\270.txt"
- M docs/submission/screenshots/01_main_seeded.png
- M docs/submission/screenshots/02_resume_generated.png
- M docs/submission/screenshots/03_print_preview.png
- M docs/submission/screenshots/04_input_form_demo.png
- M docs/submission/screenshots/05_resume_with_certificate.png
- M docs/submission/screenshots/06_live_deploy_learnprint_jclee_me.png
- M docs/submission/screenshots/07_ai_agent_competency.png
  M docs/submission/submission-email.md
- M docs/submission/submission-guide.md
  M docs/verification-log.txt
- M package-lock.json
- M package.json
  M server/AGENTS.md
  M src/AGENTS.md
  M src/App.test.tsx
@@ -56,11 +38,7 @@ M AGENTS.md
 ?? LICENSE
 ?? docs/AGENTS.md
 ?? docs/submission/AGENTS.md
-?? "docs/submission/final/evidence/08_\355\230\204\354\236\254\352\262\200\354\246\235\353\263\264\354\266\251\354\236\220\353\243\214.md"
 ?? scripts/AGENTS.md
-?? scripts/lib/
-?? scripts/verify-readiness.mjs
-?? scripts/verify-submission-package.mjs
 ?? src/features/resume/exporters.security.test.ts
 ?? src/styles/agent.css
 ?? src/styles/base.css
@@ -73,58 +51,64 @@ M AGENTS.md
 ?? src/styles/tokens.css
 
 ## npm test
-시작: 2026. 06. 13. 13:44:59
+시작: 2026. 06. 30. 15:48:44
 명령: npm test
 타임아웃: 180초
 > learnprint@0.1.0 test
 > vitest run
  RUN  v2.1.9 /home/jclee/dev/learnprint
- ✓ src/features/resume/finalOutputSummary.test.ts (5 tests) 12ms
- ✓ src/lib/agent/client.test.ts (7 tests) 18ms
- ✓ src/features/resume/exporters.test.ts (18 tests) 26ms
- ✓ src/lib/ai/analyzer.test.ts (12 tests) 23ms
- ✓ src/features/resume/ExportControls.test.tsx (10 tests) 327ms
- ✓ src/features/agent/AgentPanel.test.tsx (12 tests) 387ms
- ✓ src/App.test.tsx (7 tests) 814ms
- ✓ src/data/hycu-seed.test.ts (7 tests) 7ms
- ✓ src/lib/storage/storage.test.ts (9 tests) 9ms
- ✓ src/features/resume/exporters.security.test.ts (2 tests) 9ms
- ✓ src/features/resume/ResumeView.test.tsx (3 tests) 125ms
- ✓ server/cliproxy.test.ts (4 tests) 7ms
- ✓ server/static.test.ts (3 tests) 14ms
- ✓ src/styles/global.test.ts (3 tests) 3ms
- ✓ server/validation.test.ts (9 tests) 2ms
- ✓ server/read-body.test.ts (3 tests) 3ms
- ✓ src/features/analysis/LearningItemList.test.tsx (2 tests) 103ms
- ✓ server/agent-handler.test.ts (2 tests) 6ms
+ ✓ src/lib/agent/client.test.ts (7 tests) 19ms
+ ✓ src/features/resume/exporters.test.ts (18 tests) 53ms
+ ✓ src/lib/ai/analyzer.test.ts (12 tests) 87ms
+ ✓ src/features/resume/finalOutputSummary.test.ts (5 tests) 15ms
+ ✓ src/features/resume/ExportControls.test.tsx (10 tests) 1462ms
+   ✓ ExportControls > export-controls:markdown-export-uses-english-filename 625ms
+ ✓ src/features/agent/AgentPanel.test.tsx (12 tests) 2442ms
+   ✓ AgentPanel > agent-panel:renders-korean-title-and-mode-buttons 1047ms
+   ✓ AgentPanel > agent-panel:invokes-streamAgentChat-on-competency-click 301ms
+ ✓ src/lib/storage/storage.test.ts (9 tests) 10ms
+ ✓ src/App.test.tsx (7 tests) 2180ms
+   ✓ App > app:shows-resume-workflow 719ms
+   ✓ App > app:resume-workflow-updates-after-generation 622ms
+ ✓ src/data/hycu-seed.test.ts (7 tests) 12ms
+ ✓ src/features/resume/ResumeView.test.tsx (3 tests) 370ms
+   ✓ ResumeView > resume-view:shows-final-output-package-summary 330ms
+ ✓ src/features/resume/exporters.security.test.ts (2 tests) 19ms
+ ✓ src/styles/global.test.ts (3 tests) 2ms
+ ✓ server/cliproxy.test.ts (4 tests) 14ms
+ ✓ server/static.test.ts (3 tests) 18ms
+ ✓ src/features/analysis/LearningItemList.test.tsx (2 tests) 307ms
+ ✓ server/validation.test.ts (9 tests) 3ms
  ✓ src/lib/agent/context.test.ts (3 tests) 2ms
- ✓ server/dotenv.test.ts (4 tests) 4ms
- ✓ src/lib/id.test.ts (3 tests) 5ms
+ ✓ server/read-body.test.ts (3 tests) 4ms
+ ✓ server/dotenv.test.ts (4 tests) 5ms
+ ✓ server/agent-handler.test.ts (2 tests) 10ms
  ✓ server/prompt.test.ts (3 tests) 2ms
- ✓ server/env.test.ts (3 tests) 3ms
- ✓ vite-base.test.ts (2 tests) 51ms
+ ✓ server/env.test.ts (3 tests) 9ms
+ ✓ src/lib/id.test.ts (3 tests) 3ms
+ ✓ vite-base.test.ts (2 tests) 89ms
  Test Files  24 passed (24)
       Tests  136 passed (136)
-   Start at  13:45:00
-   Duration  3.76s (transform 1.33s, setup 1.07s, collect 2.50s, tests 1.96s, environment 15.88s, prepare 1.39s)
-종료: 2026. 06. 13. 13:45:03
-소요: 4003ms
+   Start at  15:48:45
+   Duration  12.68s (transform 3.39s, setup 3.03s, collect 8.57s, tests 7.14s, environment 38.22s, prepare 9.91s)
+종료: 2026. 06. 30. 15:48:57
+소요: 13518ms
 exitCode: 0
 결과: 통과
 
 ## npm run typecheck
-시작: 2026. 06. 13. 13:45:03
+시작: 2026. 06. 30. 15:48:57
 명령: npm run typecheck
 타임아웃: 180초
 > learnprint@0.1.0 typecheck
 > tsc --noEmit && tsc -p tsconfig.server.json
-종료: 2026. 06. 13. 13:45:04
-소요: 450ms
+종료: 2026. 06. 30. 15:48:58
+소요: 719ms
 exitCode: 0
 결과: 통과
 
 ## npm run build
-시작: 2026. 06. 13. 13:45:04
+시작: 2026. 06. 30. 15:48:58
 명령: npm run build
 타임아웃: 180초
 > learnprint@0.1.0 build
@@ -136,17 +120,17 @@ rendering chunks...
 computing gzip size...
 dist/index.html                   0.41 kB │ gzip:  0.29 kB
 dist/assets/index-CaXGfikV.css   19.70 kB │ gzip:  4.21 kB
-dist/assets/index-Tv3cmeTn.js   224.26 kB │ gzip: 71.30 kB
-✓ built in 439ms
-종료: 2026. 06. 13. 13:45:05
-소요: 985ms
+dist/assets/index-urXFEDhq.js   224.22 kB │ gzip: 71.29 kB
+✓ built in 545ms
+종료: 2026. 06. 30. 15:48:59
+소요: 1107ms
 exitCode: 0
 결과: 통과
 
 ## 파일 크기
 - [build-output] dist/.gitkeep: 0 bytes (0.00 KiB)
 - [build-output] dist/assets/index-CaXGfikV.css: 19698 bytes (19.24 KiB)
-- [build-output] dist/assets/index-Tv3cmeTn.js: 224255 bytes (219.00 KiB)
+- [build-output] dist/assets/index-urXFEDhq.js: 224222 bytes (218.97 KiB)
 - [build-output] dist/index.html: 406 bytes (0.40 KiB)
 - [final-package] docs/submission/final/00_제출안내.md: 4901 bytes (4.79 KiB)
 - [final-package] docs/submission/final/01_참가신청서_AI증빙_이재철.docx: 22195 bytes (21.67 KiB)
@@ -169,27 +153,10 @@ M AGENTS.md
  M docs/case-report.md
  M docs/code-quality-checklist.md
  M docs/score-estimate-review.md
- M docs/submission-checklist.md
- M docs/submission/README.md
- M docs/submission/appendix3_ai-evidence.md
- M docs/submission/appendix3_form-fill.md
  M docs/submission/build-test-log.txt
- M "docs/submission/final/00_\354\240\234\354\266\234\354\225\210\353\202\264.md"
- M "docs/submission/final/evidence/04_\354\213\244\355\226\211\355\231\224\353\251\264\354\272\241\354\262\230.zip"
- M "docs/submission/final/evidence/05_\354\213\234\354\227\260\354\230\201\354\203\201.mp4"
  M "docs/submission/final/evidence/06_\353\271\214\353\223\234\355\205\214\354\212\244\355\212\270\353\241\234\352\267\270.txt"
- M docs/submission/screenshots/01_main_seeded.png
- M docs/submission/screenshots/02_resume_generated.png
- M docs/submission/screenshots/03_print_preview.png
- M docs/submission/screenshots/04_input_form_demo.png
- M docs/submission/screenshots/05_resume_with_certificate.png
- M docs/submission/screenshots/06_live_deploy_learnprint_jclee_me.png
- M docs/submission/screenshots/07_ai_agent_competency.png
  M docs/submission/submission-email.md
- M docs/submission/submission-guide.md
  M docs/verification-log.txt
- M package-lock.json
- M package.json
  M server/AGENTS.md
  M src/AGENTS.md
  M src/App.test.tsx
@@ -209,11 +176,7 @@ M AGENTS.md
 ?? LICENSE
 ?? docs/AGENTS.md
 ?? docs/submission/AGENTS.md
-?? "docs/submission/final/evidence/08_\355\230\204\354\236\254\352\262\200\354\246\235\353\263\264\354\266\251\354\236\220\353\243\214.md"
 ?? scripts/AGENTS.md
-?? scripts/lib/
-?? scripts/verify-readiness.mjs
-?? scripts/verify-submission-package.mjs
 ?? src/features/resume/exporters.security.test.ts
 ?? src/styles/agent.css
 ?? src/styles/base.css
@@ -227,9 +190,9 @@ M AGENTS.md
 
 ## 명령 결과 요약
 - Todo 1 테스트 결과: 136 passed (npm test 출력에서 파싱한 실제 Tests 총계)
-- npm test: 통과 (exitCode=0, durationMs=4003)
-- npm run typecheck: 통과 (exitCode=0, durationMs=450)
-- npm run build: 통과 (exitCode=0, durationMs=985)
+- npm test: 통과 (exitCode=0, durationMs=13518)
+- npm run typecheck: 통과 (exitCode=0, durationMs=719)
+- npm run build: 통과 (exitCode=0, durationMs=1107)
 
 ## Adversarial QA 메모
 - stale_state: timestamp, git commit, Node/npm version을 기록하고 테스트 통과 수는 npm test 출력에서 파싱해 stale hard-code를 방지합니다.
@@ -245,4 +208,4 @@ M AGENTS.md
 
 최종 결과: 통과
 로그 저장: docs/submission/final/evidence/06_빌드테스트로그.txt
-로그 저장: .omo/ulw-loop/evidence-refresh-20260613/evidence/C001-readiness-generator.log
+로그 저장: .omo/ulw-loop/current-readiness/evidence/C001-readiness-generator.log

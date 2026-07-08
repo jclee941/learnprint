@@ -1,0 +1,68 @@
+@media (max-width: 980px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .app {
+    width: min(100% - var(--space-5), var(--max-width));
+    padding: var(--space-5) 0 var(--space-10);
+  }
+
+  .app-header,
+  .panel-card,
+  .analysis-panel,
+  .item-card,
+  .resume-header,
+  .resume-competencies {
+    padding: var(--space-5);
+  }
+
+  .app-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .app-main,
+  .analysis-workspace,
+  .resume-output {
+    gap: var(--space-5);
+  }
+
+  .form-row,
+  .item-card-header {
+    grid-template-columns: 1fr;
+  }
+
+  .item-card-header {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .export-controls {
+    padding: var(--space-5);
+  }
+
+  .export-controls__primary,
+  .export-controls__secondary {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .export-controls button {
+    width: 100%;
+  }
+
+  .agent-mode-row,
+  .agent-chat-row {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-send-button {
+    width: 100%;
+  }
+
+  .resume-competency {
+    padding-left: var(--space-4);
+  }
+}

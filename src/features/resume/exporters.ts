@@ -33,10 +33,8 @@ export function resumeToMarkdown(resume: LearningResume): string {
     lines.push("", `## ${competency.label}`, "", competency.summary, "");
 
     for (const evidence of competency.evidence) {
-      const linkText = evidence.link ? ` [링크](${evidence.link})` : "";
-      const typeAndPeriod = evidence.period
-        ? `(${evidence.type}, ${evidence.period})`
-        : `(${evidence.type})`;
+      const linkText = evidence.link ? ` ${formatMarkdownLink("링크", evidence.link)}` : "";
+      const typeAndPeriod = `(${formatTypeAndPeriod(evidence.type, evidence.period)})`;
       lines.push(`- **${evidence.title}** ${typeAndPeriod}: ${evidence.snippet}${linkText}`);
     }
   }
@@ -48,8 +46,47 @@ export function resumeToJson(resume: LearningResume): string {
   return JSON.stringify(resume, null, 2);
 }
 
+function escapeMarkdownLinkLabel(label: string): string {
+  return label.replace(/[\r\n]+/g, " ").replace(/([\\[\]])/g, "\\$1");
+}
+
+function encodeMarkdownDestinationCharacter(character: string): string {
+  switch (character) {
+    case "\\":
+      return "%5C";
+    case "(":
+      return "%28";
+    case ")":
+      return "%29";
+    case "[":
+      return "%5B";
+    case "]":
+      return "%5D";
+    case "<":
+      return "%3C";
+    case ">":
+      return "%3E";
+    default:
+      return encodeURIComponent(character);
+  }
+}
+
+function escapeMarkdownLinkDestination(destination: string): string {
+  return destination.replace(/[\u0000-\u001F\u007F\s\\[\]<>()]/g, (character) =>
+    encodeMarkdownDestinationCharacter(character),
+  );
+}
+
+function formatMarkdownLink(label: string, destination: string): string {
+  return `[${escapeMarkdownLinkLabel(label)}](${escapeMarkdownLinkDestination(destination)})`;
+}
+
 function escapeTableCell(text: string): string {
-  return text.replace(/\|/g, "\\|").replace(/\n/g, " ").trim();
+  return text.replace(/\|/g, "\\|").replace(/[\r\n]+/g, " ").trim();
+}
+
+function formatTypeAndPeriod(type: string, period: string): string {
+  return period ? `${type}, ${period}` : type;
 }
 
 export function resumeToEvidenceLedgerMarkdown(resume: LearningResume): string {
@@ -91,20 +128,22 @@ export function resumeToEvidenceLedgerMarkdown(resume: LearningResume): string {
   for (const competency of resume.competencies) {
     for (const evidence of competency.evidence) {
       const artifact = evidence.link
-        ? `[\uD30C\uC77C\u00B7\uB9C1\uD06C](${evidence.link})`
+        ? formatMarkdownLink("\uD30C\uC77C\u00B7\uB9C1\uD06C", evidence.link)
         : "\uAE30\uB85D \uBCF8\uBB38";
-      const linkText = evidence.link ? ` [\uB9C1\uD06C](${evidence.link})` : "";
+      const linkText = evidence.link
+        ? ` ${formatMarkdownLink("\uB9C1\uD06C", evidence.link)}`
+        : "";
       const sentence = `${evidence.snippet}${linkText}`;
       const rowLimitation = "\uD0A4\uC6CC\uB4DC \uBD84\uB958 \uACB0\uACFC\uC774\uBA70 \uC758\uBBF8 \uAC80\uC99D\uC740 LLM \uAC80\uD1A0 \uD544\uC694";
       lines.push(
-        `| ${escapeTableCell(evidence.title)} | ${escapeTableCell(`${evidence.type}, ${evidence.period}`)} | ${escapeTableCell(artifact)} | ${escapeTableCell(competency.label)} | ${escapeTableCell(sentence)} | ${escapeTableCell(rowLimitation)} |`,
+        `| ${escapeTableCell(evidence.title)} | ${escapeTableCell(formatTypeAndPeriod(evidence.type, evidence.period.trim()))} | ${escapeTableCell(artifact)} | ${escapeTableCell(competency.label)} | ${escapeTableCell(sentence)} | ${escapeTableCell(rowLimitation)} |`,
       );
     }
   }
 
   lines.push(
     "",
-    "> \uD55C\uACC4: \uC774 \uC6D0\uC7A5\uC740 \uC0AC\uC6A9\uC790\uAC00 \uC785\uB825\uD55C \uD559\uC2B5 \uAE30\uB85D\uACFC \uACB0\uC815\uB860\uC801 \uD0A4\uC6CC\uB4DC \uBD84\uB958 \uACB0\uACFC\uB97C \uAD6C\uC870\uD654\uD55C \uAC83\uC774\uBA70, \uC131\uC801\u00B7\uCD9C\uC11D\u00B7LMS \uC6D0\uBCF8\uC744 \uC790\uB3D9 \uAC80\uC99D\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.",
+    "> \uD55C\uACC4: \uC774 \uC6D0\uC7A5\uC740 \uC0AC\uC6A9\uC790\uAC00 \uC785\uB825\uD55C \uD559\uC2B5 \uAE30\uB85D\uACFC \uACB0\uC815\uB860\uC801 \uD0A4\uC6CC\uB4DC \uBD84\uB958 \uACB0\uACFC\uB97C \uAD6C\uC870\uD654\uD55C \uAC83\uC774\uBA70, \uC131\uC801\u00B7\uCD9C\uC11D\u00B7LMS \uC6D0\uBCF8\uC744 \uC790\uB3D9 \uAC80\uC99D\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. \uB610\uD55C \uC5EC\uB7EC \uCD9C\uCC98\uB97C \uAD50\uCC28 \uAC80\uC99D\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.",
   );
 
   return `${lines.join("\n")}\n`;

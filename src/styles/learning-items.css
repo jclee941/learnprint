@@ -1,0 +1,123 @@
+.item-count {
+  margin-bottom: var(--space-2);
+  color: var(--color-ink-strong);
+  font-weight: 850;
+}
+
+.empty-guidance,
+.resume-status {
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+
+.empty-guidance {
+  color: var(--color-muted);
+  background: rgb(255 255 255 / 68%);
+}
+
+.resume-status {
+  color: var(--color-success);
+  background: var(--color-success-soft);
+}
+
+.learning-item-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.item-card {
+  padding: var(--space-5);
+}
+
+.item-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.item-card h3 {
+  margin-bottom: var(--space-1);
+}
+
+.item-period,
+.item-description,
+.item-evidence {
+  color: var(--color-muted);
+}
+
+.item-period {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.item-description,
+.item-evidence {
+  margin-bottom: var(--space-3);
+  font-size: 0.96rem;
+}
+
+.item-evidence span:first-child {
+  color: var(--color-ink-strong);
+  font-weight: 800;
+}
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0 var(--space-3);
+  border: 1px solid rgb(47 79 143 / 18%);
+  border-radius: 999px;
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.secondary-action {
+  min-height: 2.25rem;
+  padding: 0 var(--space-4);
+  border: 1px solid rgb(182 66 66 / 24%);
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+  font-size: 0.9rem;
+}
+
+.secondary-action:hover {
+  border-color: rgb(182 66 66 / 42%);
+  background: #f8dfdf;
+}
+
+.learning-item-list-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.learning-item-list-header h2 {
+  margin-bottom: 0;
+}
+
+.coverage-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}

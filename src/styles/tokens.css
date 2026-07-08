@@ -1,0 +1,53 @@
+:root {
+  color-scheme: light;
+  font-family:
+    "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+    system-ui, sans-serif;
+  --color-ink: #172033;
+  --color-ink-strong: #0c1424;
+  --color-muted: #657086;
+  --color-subtle: #8a94a7;
+  --color-paper: #ffffff;
+  --color-canvas: #f5f7fb;
+  --color-panel: #fbfcff;
+  --color-line: #dbe2ee;
+  --color-line-strong: #c7d1e1;
+  --color-accent: #2f4f8f;
+  --color-accent-strong: #243e73;
+  --color-accent-soft: #e9eef8;
+  --color-accent-wash: #f3f6fc;
+  --color-success: #1d7a59;
+  --color-success-soft: #e8f6f0;
+  --color-danger: #b64242;
+  --color-danger-soft: #faecec;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --shadow-sm: 0 0.25rem 1rem rgb(23 32 51 / 8%);
+  --shadow-md: 0 1rem 2.5rem rgb(23 32 51 / 10%);
+  --shadow-lg: 0 1.5rem 4rem rgb(23 32 51 / 14%);
+  --focus-ring: 0 0 0 0.25rem rgb(47 79 143 / 16%);
+  --max-width: 1080px;
+  --transition: 160ms ease;
+
+  color: var(--color-ink);
+  background: var(--color-canvas);
+}

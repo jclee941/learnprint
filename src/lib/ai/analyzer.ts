@@ -171,7 +171,7 @@ export function createHeuristicAnalyzer(): LearningAnalyzer {
   };
 }
 export function countMeaningfulCompetencies(result: AnalysisResult): number {
-  return result.competencies.filter((competency) => !competency.label.includes("기타")).length;
+  return result.competencies.filter((competency) => competency.key !== FALLBACK_COMPETENCY.key).length;
 }
 
 function findBestCompetency(item: LearningItem): { competency: CompetencyCatalogEntry; score: number } {
@@ -191,7 +191,20 @@ function findBestCompetency(item: LearningItem): { competency: CompetencyCatalog
 }
 
 function countKeywordMatches(searchableText: string, keywords: readonly string[]): number {
-  return keywords.reduce((total, keyword) => total + (searchableText.includes(keyword.toLocaleLowerCase()) ? 1 : 0), 0);
+  return keywords.reduce((total, keyword) => total + (matchesKeyword(searchableText, keyword) ? 1 : 0), 0);
+}
+
+function matchesKeyword(searchableText: string, keyword: string): boolean {
+  const normalizedKeyword = keyword.toLocaleLowerCase();
+  if (/^[a-z0-9]+$/.test(normalizedKeyword)) {
+    return new RegExp(`(^|[^a-z0-9])${escapeRegExp(normalizedKeyword)}([^a-z0-9]|$)`, "i").test(searchableText);
+  }
+
+  return searchableText.includes(normalizedKeyword);
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function buildCompetencyGroup(competency: CompetencyCatalogEntry, assignedItems: AssignedItem[]): CompetencyGroup | null {

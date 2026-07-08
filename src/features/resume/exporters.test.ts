@@ -108,16 +108,14 @@ describe("resume exporters", () => {
   it("resume:evidence-ledger-includes-row-and-global-limitation", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 
-    // per-row limitation cell
     expect(ledger).toContain("키워드 분류 결과이며 의미 검증은 LLM 검토 필요");
-    // global limitation note
     expect(ledger).toContain("성적·출석·LMS 원본을 자동 검증하지 않습니다");
+    expect(ledger).toContain("여러 출처를 교차 검증하지 않습니다");
   });
 
   it("resume:evidence-ledger-includes-artifact-source", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 
-    // artifact/source column derived from evidence link
     expect(ledger).toContain("[파일·링크](https://example.com/report)");
   });
 
@@ -175,5 +173,88 @@ describe("resume exporters", () => {
     const ledger = resumeToEvidenceLedgerMarkdown(fixtureResume);
 
     expect(ledger).toContain("[링크](https://example.com/report)");
+  });
+
+  it("resume:evidence-ledger-escapes-table-pipes-and-line-breaks", () => {
+    const resume: LearningResume = {
+      ...fixtureResume,
+      competencies: [
+        {
+          ...fixtureResume.competencies[0],
+          label: "데이터|AI 역량",
+          evidence: [
+            {
+              ...fixtureResume.competencies[0].evidence[0],
+              title: "보고서|초안",
+              type: "강의",
+              period: "2026.01\n2026.03",
+              snippet: "첫 줄\n둘째 줄 | 표 기호",
+              link: "https://example.com/report|draft",
+            },
+          ],
+        },
+      ],
+    };
+
+    const ledger = resumeToEvidenceLedgerMarkdown(resume);
+
+    expect(ledger).toContain("보고서\\|초안");
+    expect(ledger).toContain("2026.01 2026.03");
+    expect(ledger).toContain("첫 줄 둘째 줄 \\| 표 기호");
+    expect(ledger).toContain("[파일·링크](https://example.com/report\\|draft)");
+    expect(ledger).toContain("[링크](https://example.com/report\\|draft)");
+    expect(ledger).toContain("데이터\\|AI 역량");
+  });
+
+  it("resume:evidence-ledger-normalizes-carriage-returns-in-table-cells", () => {
+    const resume: LearningResume = {
+      ...fixtureResume,
+      competencies: [
+        {
+          ...fixtureResume.competencies[0],
+          evidence: [
+            {
+              ...fixtureResume.competencies[0].evidence[0],
+              title: "보고서\r초안",
+              type: "강의",
+              period: "2026.01\r\n2026.03",
+              snippet: "첫 줄\r둘째 줄",
+              link: "https://example.com/report\rnote",
+            },
+          ],
+        },
+      ],
+    };
+
+    const ledger = resumeToEvidenceLedgerMarkdown(resume);
+
+    expect(ledger).not.toContain("\r");
+    expect(ledger).toContain("보고서 초안");
+    expect(ledger).toContain("2026.01 2026.03");
+    expect(ledger).toContain("첫 줄 둘째 줄");
+    expect(ledger).toContain("[파일·링크](https://example.com/report%0Dnote)");
+  });
+
+  it("resume:evidence-ledger-omits-period-comma-when-period-empty", () => {
+    const resume: LearningResume = {
+      ...fixtureResume,
+      competencies: [
+        {
+          ...fixtureResume.competencies[0],
+          evidence: [
+            {
+              ...fixtureResume.competencies[0].evidence[0],
+              type: "강의",
+              period: "",
+            },
+          ],
+        },
+      ],
+    };
+
+    const ledger = resumeToEvidenceLedgerMarkdown(resume);
+
+    expect(ledger).toContain("| 강의 |");
+    expect(ledger).not.toContain("강의, ");
   });
 });

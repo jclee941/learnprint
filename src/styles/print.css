@@ -1,0 +1,142 @@
+@media print {
+  @page {
+    margin: 14mm 13mm;
+  }
+
+  :root {
+    color: #111;
+    background: #fff;
+  }
+
+  html,
+  body {
+    min-width: 0;
+    background: #fff;
+    color: #111;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  .app {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-header,
+  .analysis-workspace,
+  .export-controls,
+  .no-print,
+  button {
+    display: none;
+  }
+
+  .app-main,
+  .resume-output {
+    display: block;
+    width: 100%;
+  }
+
+  .resume-output,
+  .resume,
+  .resume-header,
+  .resume-competencies,
+  .resume-competency,
+  .resume-evidence {
+    margin: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .resume {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+  }
+
+  .resume::before {
+    height: 0;
+  }
+
+  .resume-header {
+    padding: 0 0 8mm;
+    border-bottom: 1px solid #222;
+    background: #fff;
+  }
+
+  .resume-generated {
+    color: #555;
+    font-size: 9pt;
+  }
+
+  .resume-header h2 {
+    margin-bottom: 3mm;
+    color: #111;
+    font-size: 22pt;
+  }
+
+  .resume-summary {
+    color: #222;
+    font-size: 10.5pt;
+  }
+
+  .resume-competencies {
+    gap: 7mm;
+    padding: 8mm 0 0;
+  }
+
+  .resume-competency {
+    padding-left: 4mm;
+    border-left: 2pt solid #222;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-competency h3 {
+    margin-bottom: 2mm;
+    padding-bottom: 1mm;
+    border-bottom: 1px solid #999;
+    color: #111;
+    font-size: 13pt;
+  }
+
+  .resume-competency > p {
+    margin-bottom: 4mm;
+    color: #222;
+  }
+
+  .resume-evidence-list {
+    gap: 3mm;
+  }
+
+  .resume-evidence {
+    padding: 3mm 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-evidence-meta {
+    color: #333;
+  }
+
+  .type-badge {
+    min-height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #111;
+    font-size: 9pt;
+  }
+
+  a {
+    color: #111;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+/* 키보드 포커스 가시성: 버튼·링크에 일관된 포커스 링 (마우스 클릭에는 표시 안 함) */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent, #2f4f8f);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm, 0.375rem);
+}
+
+html {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgb(47 79 143 / 14%), transparent 28rem),
+    linear-gradient(135deg, #f8fafc 0%, var(--color-canvas) 52%, #eef3fb 100%);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-ink);
+  background:
+    linear-gradient(90deg, rgb(47 79 143 / 4%) 1px, transparent 1px) 0 0 / 4rem 4rem,
+    linear-gradient(0deg, rgb(47 79 143 / 4%) 1px, transparent 1px) 0 0 / 4rem 4rem,
+    transparent;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.72;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-underline-offset: 0.18em;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent-strong);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-ink-strong);
+  line-height: 1.28;
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  margin-bottom: var(--space-4);
+  font-size: clamp(2.5rem, 8vw, 4.8rem);
+  font-weight: 900;
+}
+
+h2 {
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 850;
+}
+
+h3 {
+  margin-bottom: var(--space-2);
+  font-size: 1.16rem;
+  font-weight: 800;
+}
+
+h4 {
+  margin-bottom: var(--space-2);
+  font-size: 1rem;
+  font-weight: 800;
+}

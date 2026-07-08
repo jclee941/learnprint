@@ -93,28 +93,37 @@ export function ExportControls({ resume }: ExportControlsProps) {
   };
 
   return (
-    <div className="export-controls no-print" aria-label="이력서 내보내기 도구">
-      <button type="button" onClick={handlePrint}>
-        인쇄
-      </button>
-      <button type="button" onClick={handleMarkdownExport}>
-        Markdown 내보내기
-      </button>
-      <button type="button" onClick={handleMarkdownCopy}>
-        Markdown 복사
-      </button>
-      <button type="button" onClick={handleJsonExport}>
-        JSON 내보내기
-      </button>
-      <button type="button" onClick={handleJsonCopy}>
-        JSON 복사
-      </button>
-      <button type="button" onClick={handleEvidenceLedgerExport}>
-        증거 원장 내보내기
-      </button>
-      <button type="button" onClick={handleEvidenceLedgerCopy}>
-        증거 원장 복사
-      </button>
+    <div className="export-controls no-print" role="group" aria-label="이력서 내보내기 도구">
+      <div className="export-controls__header">
+        <p className="eyebrow">Export</p>
+        <h2>이력서 내보내기 도구</h2>
+        <p>제출 파일은 먼저 내려받고, 검토 공유가 필요할 때 복사와 인쇄를 사용하세요.</p>
+      </div>
+      <div className="export-controls__primary" aria-label="제출 파일 내보내기">
+        <button type="button" onClick={handleMarkdownExport}>
+          Markdown 내보내기
+        </button>
+        <button type="button" onClick={handleJsonExport}>
+          JSON 내보내기
+        </button>
+        <button type="button" onClick={handleEvidenceLedgerExport}>
+          증거 원장 내보내기
+        </button>
+      </div>
+      <div className="export-controls__secondary" aria-label="검토용 복사와 인쇄">
+        <button type="button" onClick={handlePrint}>
+          인쇄
+        </button>
+        <button type="button" onClick={handleMarkdownCopy}>
+          Markdown 복사
+        </button>
+        <button type="button" onClick={handleJsonCopy}>
+          JSON 복사
+        </button>
+        <button type="button" onClick={handleEvidenceLedgerCopy}>
+          증거 원장 복사
+        </button>
+      </div>
       <span className="export-controls__status" role="status" aria-live="polite">
         {copyStatus === "success" ? "복사됨" : copyStatus === "failure" ? "복사 실패" : ""}
       </span>

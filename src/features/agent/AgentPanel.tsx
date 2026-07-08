@@ -30,7 +30,6 @@ export function AgentPanel({ items }: AgentPanelProps) {
   // 스트리밍 텍스트를 ref에도 누적해 onDone에서 stale-closure 없이 최종 본문을 읽는다.
   const responseRef = useRef("");
 
-
   useEffect(() => {
     mountedRef.current = true;
     // 언마운트 시 진행 중인 요청을 취소하고 요청 ID를 무효화해 늦은 콜백을 무시한다.
@@ -68,7 +67,9 @@ export function AgentPanel({ items }: AgentPanelProps) {
     setErrorMessage("");
     setStatus("loading");
 
-    void streamAgentChat(request, {
+    void streamAgentChat(
+      request,
+      {
         onDelta: (text) => {
           if (!isCurrent()) return;
           setStatus("streaming");
@@ -124,9 +125,9 @@ export function AgentPanel({ items }: AgentPanelProps) {
   return (
     <section className="panel-card agent-panel" aria-label="HYCU AI 학습 에이전트 패널">
       <div className="agent-header">
-        <p className="eyebrow">AI Learning Agent</p>
+        <p className="eyebrow">Optional AI Coach</p>
         <h2>HYCU AI 학습 에이전트</h2>
-        <p>등록한 학습 경험을 바탕으로 역량 문장, 학습 코칭, 면접 대비 질문을 실시간으로 제안합니다.</p>
+        <p>이력서 본문을 보조로 다듬고 싶을 때 역량 문장, 학습 코칭, 면접 질문을 요청합니다.</p>
       </div>
 
       {items.length === 0 && (
@@ -187,6 +188,7 @@ export function AgentPanel({ items }: AgentPanelProps) {
 
       <div
         className="agent-response"
+        role="region"
         aria-live="polite"
         aria-busy={status === "loading" || status === "streaming"}
         aria-label="AI 응답"

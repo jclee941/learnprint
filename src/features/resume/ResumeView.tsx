@@ -17,6 +17,7 @@ export function ResumeView({ resume }: ResumeViewProps) {
         <p className="resume-generated">생성일: {generatedDate}</p>
         <h2>{resume.title}</h2>
         <p className="resume-summary">{resume.summary}</p>
+        <p className="resume-review-note">검토 순서: 요약 → 최종 산출물 패키지 → 역량별 증거</p>
       </header>
 
       <section className="resume-competency" aria-label="최종 산출물 패키지">

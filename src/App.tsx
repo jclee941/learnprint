@@ -16,6 +16,8 @@ export default function App() {
   const [coverage, setCoverage] = useState(0);
   const itemSignature = items.map((item) => `${item.id}:${item.createdAt}`).join("|");
   const isSubmissionReady = resume !== null && resumeItemSignature === itemSignature;
+  const generationLabel = isSubmissionReady ? "검토 가능" : "생성 대기";
+  const reviewLabel = isSubmissionReady ? "내보내기 준비" : "검토 전";
 
   useEffect(() => {
     if (items.length === 0) {
@@ -65,7 +67,7 @@ export default function App() {
       <header className="app-header">
         <p className="eyebrow">HYCU Learning Résumé</p>
         <h1>HYCU 학습 이력서</h1>
-        <p className="app-subtitle">한 페이지에서 입력부터 이력서 생성까지 끝내기</p>
+        <p className="app-subtitle">입력, 생성, 검토, 내보내기를 한 흐름으로 정리합니다.</p>
       </header>
 
       <main className="app-main">
@@ -74,18 +76,23 @@ export default function App() {
             <div>
               <p className="eyebrow">Resume Builder</p>
               <h2>이력서 만들기 흐름</h2>
-              <p>학습 경험을 정리하고 이력서를 생성한 뒤, Markdown·JSON·증거 원장·인쇄본까지 한 화면에서 준비합니다.</p>
+              <p>학습 경험을 모으고 이력서를 생성한 뒤, 본문을 먼저 검토하고 필요한 제출 파일을 내보냅니다.</p>
             </div>
             <div className="submission-steps" aria-label="이력서 만들기 단계">
               <div className={items.length > 0 ? "submission-step is-complete" : "submission-step"}>
                 <span>1</span>
-                <strong>등록된 학습 경험 {items.length}개</strong>
-                <small>{items.length > 0 ? "강의·프로젝트·증거를 한 곳에 모읍니다." : "학습 경험을 1개 이상 입력합니다."}</small>
+                <strong>입력: 학습 경험 {items.length}개</strong>
+                <small>{items.length > 0 ? "강의·프로젝트·증거가 이력서 근거로 준비됐습니다." : "학습 경험을 1개 이상 입력합니다."}</small>
               </div>
               <div className={isSubmissionReady ? "submission-step is-complete" : "submission-step"}>
                 <span>2</span>
-                <strong>{isSubmissionReady ? "이력서 준비 완료" : "출력 전"}</strong>
-                <small>{isSubmissionReady ? "아래에서 원하는 형식으로 이력서를 저장하세요." : "이력서 생성을 눌러 이력서 문서를 만듭니다."}</small>
+                <strong>생성: {generationLabel}</strong>
+                <small>{isSubmissionReady ? "오른쪽 또는 아래에서 생성된 이력서를 검토합니다." : "이력서 생성을 눌러 문서를 만듭니다."}</small>
+              </div>
+              <div className={isSubmissionReady ? "submission-step is-complete" : "submission-step"}>
+                <span>3</span>
+                <strong>검토·내보내기: {reviewLabel}</strong>
+                <small>{isSubmissionReady ? "본문 확인 후 Markdown, JSON, 증거 원장, 인쇄를 선택합니다." : "생성 후 내보내기 도구가 표시됩니다."}</small>
               </div>
             </div>
           </section>
@@ -115,13 +122,13 @@ export default function App() {
         {isSubmissionReady && resume && (
           <section className="resume-output">
             <div className="submission-package no-print">
-              <p className="eyebrow">Ready to Export</p>
+              <p className="eyebrow">Review First</p>
               <h2>완성된 학습 이력서</h2>
               <p className="coverage-summary">역량 {coverage}/6 커버리지</p>
-              <p>이력서 본문을 확인한 뒤 원하는 형식으로 Markdown, JSON, 증거 원장 또는 인쇄본으로 내보내세요.</p>
+              <p>아래 본문과 증거 요약을 먼저 확인한 뒤 제출 형식에 맞춰 내보내세요.</p>
             </div>
-            <ExportControls resume={resume} />
             <ResumeView resume={resume} />
+            <ExportControls resume={resume} />
           </section>
         )}
       </main>

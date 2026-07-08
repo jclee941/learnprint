@@ -112,6 +112,51 @@ describe("analyzeLearningItems", () => {
     expect(first.competencies).toEqual(second.competencies);
   });
 
+  it("analyzer:isolates-generated-at-as-volatile-metadata", () => {
+    const items = [
+      learningItem({
+        id: "stable-analysis",
+        title: "데이터 분석 AI 실습",
+        type: "과제",
+        description: "동일한 입력에서 역량, 증거, 점수는 안정적으로 유지됩니다.",
+        evidence: "실습 로그",
+      }),
+    ] satisfies LearningItem[];
+
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    const first: AnalysisResult = analyzeLearningItems(items);
+    vi.setSystemTime(1_767_312_000_000);
+    const second: AnalysisResult = analyzeLearningItems(items);
+    vi.useRealTimers();
+
+    const { generatedAt: firstGeneratedAt, ...firstStableResult } = first;
+    const { generatedAt: secondGeneratedAt, ...secondStableResult } = second;
+
+    expect(firstGeneratedAt).not.toBe(secondGeneratedAt);
+    expect(firstStableResult).toEqual(secondStableResult);
+  });
+
+  it("analyzer:does-not-match-generic-latin-keywords-inside-ordinary-words", () => {
+    const item = learningItem({
+      id: "plain-mail-note",
+      title: "email plain text 제출",
+      type: "과제",
+      description: "mail 본문과 fair use 기준을 확인했습니다.",
+      evidence: "plain text log",
+    });
+
+    const result: AnalysisResult = analyzeLearningItems([item]);
+
+    expect(result.competencies).toEqual([
+      expect.objectContaining({
+        key: "competency-6-other",
+        label: "기타 학습 경험",
+        itemIds: ["plain-mail-note"],
+      }),
+    ]);
+  });
+
   it("analyzer:uses-no-network-or-secrets", () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(vi.fn());
     const items = [
@@ -169,5 +214,25 @@ describe("countMeaningfulCompetencies", () => {
 
     expect(emptyResult.isEmpty).toBe(true);
     expect(countMeaningfulCompetencies(emptyResult)).toBe(0);
+  });
+
+  it("analyzer:coverage-excludes-fallback-by-stable-key-not-label-text", () => {
+    const result: AnalysisResult = {
+      competencies: [
+        {
+          key: "competency-6-other",
+          label: "보충 학습 경험",
+          score: 0,
+          itemIds: ["fallback-only"],
+          evidence: [],
+          summary: "키가 fallback인 그룹입니다.",
+        },
+      ],
+      totalItems: 1,
+      generatedAt: 1_767_225_600_000,
+      isEmpty: false,
+    };
+
+    expect(countMeaningfulCompetencies(result)).toBe(0);
   });
 });

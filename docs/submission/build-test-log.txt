@@ -6,7 +6,7 @@
 
 ## npm test
  Test Files  22 passed (22)
- Tests  118 passed (118)
+ Tests  118 passed (118)  # frozen/historical package snapshot, not current readiness
 
 ## npm run build
 dist/index.html                   0.41 kB │ gzip:  0.30 kB

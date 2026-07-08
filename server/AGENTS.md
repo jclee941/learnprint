@@ -18,9 +18,9 @@ agent-handler.ts  # builds prompt, calls cliproxy, streams SSE chunks
 cliproxy.ts       # OpenAI-compatible LLM client (SSE)
 prompt.ts         # system/user prompt construction
 validation.ts     # validateAgentChatBody — request body validation
-read-body.ts      # readBody + BodyTooLargeError (413 guard)
-env.ts            # loadLlmConfig — LLM_BASE_URL/KEY/MODEL from process.env
-dotenv.ts         # loadDotEnv — reads .env at startup (no override)
+read-body.ts      # readBody + BodyTooLargeError (413 guard; pause oversized bodies)
+env.ts            # loadLlmConfig - LLM_BASE_URL/KEY/MODEL from process.env
+dotenv.ts         # loadDotEnv - reads .env at startup (no override)
 static.ts         # static file serving from dist/
 types.ts          # LlmConfig and server types
 ```
@@ -32,9 +32,13 @@ types.ts          # LlmConfig and server types
 - Error responses are generic Korean messages; never leak internal error details to the client.
 - Compiled by `tsconfig.server.json`, which **excludes `*.test.ts`**. Tests colocated, run via root `vitest`.
 - Port from `PORT` env (default 4173); secrets from `.env` (gitignored).
+- `dotenv.ts` must not override existing process env; explicit environment wins over file values.
+- `static.ts` must keep path traversal protection and SPA fallback behavior together.
 
 ## ANTI-PATTERNS
 
 - Do NOT add framework dependencies.
 - Do NOT expose `LLM_API_KEY` or upstream error details to the browser.
 - Do NOT write SSE headers before request validation completes.
+- Do NOT destroy the socket for oversized bodies; pause and return clean 413 JSON.
+- Do NOT serve sibling files outside `dist/`, even when path prefixes look similar.

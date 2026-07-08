@@ -1,7 +1,7 @@
 # 코드 품질 개선 체크리스트 (Code-Quality Improvements Checklist)
 
 > learnprint — 공모전 제출(검증 커밋 `b0d438b`) **이후** 진행한 코드 품질 개선 작업의 항목·근거·검증 상태 기록.
-> 본 문서는 과거 코드 품질 개선 단계의 기록(기준 `b0d438b`, 테스트 50개 시점)입니다. 이후 최종 제출본은 릴리즈 `v1.0.0`(현행 HEAD, 테스트 115개)으로 갱신되었으며, `docs/submission/final/`이 실제 제출본입니다.
+> 본 문서는 과거 코드 품질 개선 단계의 역사적 기록(기준 `b0d438b`, 테스트 50개 시점)입니다. 이후 최종 제출본은 릴리즈 `v1.0.0`으로 갱신되었으며, 현행 HEAD의 테스트·타입체크·빌드 상태는 `npm run verify:readiness`와 `docs/submission/final/evidence/06_빌드테스트로그.txt`를 기준으로 확인합니다.
 
 ## 요약
 
@@ -10,7 +10,7 @@
 | 기준 커밋 (제출 검증본) | `b0d438b` |
 | 개선 커밋 범위 | `4131856` … `6eac233` (10개 커밋) |
 | 변경 규모 | 20개 파일, +821 / −47 |
-| 테스트 | 50개 → **115개** (22개 파일) 전부 통과 |
+| 테스트 | 역사적 개선 기록: 50개 → **115개** (22개 파일) 전부 통과 |
 | 타입체크 | `tsc --noEmit && tsc -p tsconfig.server.json` 통과 |
 | 빌드 | `vite build` 정상 |
 | 검토 | Oracle 리뷰 1차 지적(3건) 수정 후 재검증 통과 |
@@ -18,7 +18,7 @@
 검증 재현:
 
 ```bash
-npm test         # 115 passed (22 files)
+npm test         # 역사적 개선 기록: 115 passed (22 files)
 npm run typecheck
 npm run build
 ```
@@ -100,8 +100,8 @@ npm run build
 - [x] **제출 패키지 동결(frozen) 정책 명시** — `6eac233`
   - 파일: `docs/submission/README.md`
   - 무엇: `docs/submission/` 전체가 검증 커밋 `b0d438b`(테스트 50개) 시점으로 의도적으로 동결되었음을 명시. 이후 커밋은 제출에 포함되지 않는 제출 후 개선임을 문서화.
-  - 왜: 제출 패키지의 "50개 테스트" 로그가 stale가 아니라 동결본임을 분명히 함(당시 HEAD의 115개와 혼동 방지).
-  - (갱신) 이후 면 최종 제출본을 `v1.0.0`(현행 HEAD, 115개 통과)으로 재정렬하면서 동결 정책은 해제되었으며, `docs/submission/final/`이 실제 제출본입니다.
+  - 왜: 제출 패키지의 "50개 테스트" 로그가 stale가 아니라 동결본임을 분명히 함(당시 HEAD의 역사적 115개 기록과 혼동 방지).
+  - (갱신) 이후 최종 제출본을 `v1.0.0`으로 재정렬하면서 동결 정책은 해제되었으며, `docs/submission/final/`이 실제 제출본입니다. 현행 HEAD 검증은 `npm run verify:readiness` 및 canonical 로그 기준입니다.
   - 검증: README 내용 확인.
 
 ---
@@ -120,7 +120,7 @@ npm run build
 ## 7. 최종 검증 체크리스트 (Definition of Done)
 
 - [x] 모든 변경은 RED → GREEN(테스트 우선) → SURFACE 절차로 구현
-- [x] `npm test` 115개 전부 통과(테스트 삭제/스킵 없음)
+- [x] 역사적 개선 단계에서 `npm test` 115개 전부 통과(테스트 삭제/스킵 없음)
 - [x] `npm run typecheck` 클린(앱 + 서버 tsconfig)
 - [x] `npm run build` 정상(`dist/` 생성)
 - [x] 변경 파일 LSP 진단 클린
